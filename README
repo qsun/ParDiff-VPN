@@ -1,0 +1,25 @@
+ParDiff VPN source code
+
+Features of ParDiff VPN includes,
+ * Generic password for OpenVPN, PPTP, Web Login
+ * Charge users by traffic
+ * Detailed recording system
+ * Price/Usage separated
+ * Usage can be sold as voucher/SN, xtremely easy to manage
+ * Graphic report system
+ * Massive mail-out system
+
+It is consisted of the following several components,
+ * static web site
+ * database schema - store all billing information
+ * cronjobs - generate usage accounting, aggregation, reporting, monitoring traffic
+ * init scripts - mainly security settings, protect system from hacker attack or inappropriate user activities
+ * cgi interfaces
+  - admin interface
+  - user interface
+ * interface with AliPay API (not released yet)
+ * scripts to generate/remove/manage credit points
+
+To be functioning, administrators are required to install the following packages. They are packaged separately to avoid license issue. They are *NOT* part of this software.
+ * modified openvpn and pptp plugins
+
