@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="/style/main.css" />
+<title><TMPL_VAR NAME=PAGE_TITLE></title>
+</head>
+
+<body>
+<div id="wrapper">
+<div id="header">
+</div>
+
+<div id="contentwrapper">
+<div id="content">
+<TMPL_IF NAME=ERROR>
+<p>错误发生，原因:</p>
+<pre><TMPL_VAR NAME=ERROR></pre>
+<TMPL_ELSE>
+<h1>以下内容已记录，您会收到下列信息的确认函，登录信息也会包含其中。</h1>
+<p>类别: <TMPL_VAR NAME=CATEGORY></p>
+<p>标题: <TMPL_VAR NAME=TITLE></p>
+<p>用户名: <TMPL_VAR NAME=USERNAME></p>
+<p>电子邮箱: <TMPL_VAR NAME=EMAIL></p>
+<p>内容:<pre><TMPL_VAR NAME=CONTENT></pre></p>
+</TMPL_IF>
+</div>
+</div>
+</div>
+</body>
+</html>

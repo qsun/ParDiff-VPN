@@ -1,0 +1,9 @@
+config.ini - database configuration
+
+create.{html,cgi} - interface to create a new user
+
+help.html, index.html, images/, style/, css/, js/ - ordinary website file
+tutorial/ - tutorials on how to use vpn client
+ticket/ - ticket system
+cp/ - user control panel
+coupon/ - coupon code (SN) charging system

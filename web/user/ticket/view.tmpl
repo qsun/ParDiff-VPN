@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="/style/main.css" />
+<title><TMPL_VAR NAME=PAGE_TITLE></title>
+</head>
+
+<body>
+<div id="wrapper">
+<div id="header">
+</div>
+
+<div id="contentwrapper">
+<div id="content">
+<TMPL_IF NAME=ERROR>
+<p>错误发生，原因:</p>
+<pre><TMPL_VAR NAME=ERROR></pre>
+<TMPL_ELSE>
+<TMPL_VAR NAME=CONTENT>
+
+<form action="create.cgi" method="POST">
+<input type="hidden" name="type" value="old" />
+<input type="hidden" name="token" value="<TMPL_VAR NAME=TOKEN>" />
+<input type="hidden" name="ticket" value="<TMPL_VAR NAME=TICKET>" />
+<textarea name="content" cols="80" rows="10">
+请在此输入后续内容
+</textarea>
+<br />
+
+请输入验证码:
+    <script src="http://api.recaptcha.net/challenge?k=6LdHVwsAAAAAAJf562_qCaDHPtqEv2jOF%2d%2dml5Ao" type="text/javascript"></script>
+<noscript><iframe frameborder="0" height="300" src="http://api.recaptcha.net/noscript?k=6LdHVwsAAAAAAJf562_qCaDHPtqEv2jOF%2d%2dml5Ao" width="500"></iframe><textarea cols="40" name="recaptcha_challenge_field" rows="3"></textarea><input name="recaptcha_response_field" type="hidden" value="manual_challenge" /></noscript>
+<br />
+
+<input type="submit" value="提交" />
+</form>
+
+
+</TMPL_IF>
+</div>
+</div>
+</div>
+</body>
+</html>

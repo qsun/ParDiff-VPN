@@ -1,0 +1,192 @@
+@charset "UTF-8";
+
+@import url("reset.css");
+
+#page {
+	margin-left: auto;
+	margin-right: auto;
+	width: auto;
+}
+
+#login {
+	display: none;
+}
+
+#top-padding {
+    width:100%;
+    height:7px;
+    background-color:#000000;
+}
+
+#logo {
+	width: 800px;
+	height:89px;
+}
+
+#logo h1 {
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+	font-size: 72px;
+}
+#menu #menu-padding-left {
+	height:54px;
+	float: left;
+}
+
+#menu #menu-padding-right {
+    height:54px;
+	float: left;
+}
+
+#menu .menu-button {
+	float: left;
+	height: 54px;
+	width: 130px;
+	background-image:url("../images/button.gif");
+	background-repeat: repeat; 
+}
+
+#menu .menu-padding {
+	float: left;
+	height: 54px;
+	width: 40px;
+	background-image: url("../images/button.gif");
+	background-repeat: repeat;
+}
+
+#menu #menu-left {
+	float: left;
+	height: 54px;
+	width: 10px;
+	background-image: url("../images/menu-padding-left.gif");
+	background-repeat: none;
+}
+
+#menu #menu-right {
+	float: left;
+	height: 54px;
+	width: 10px;
+	background-image: url("../images/menu-padding-right.gif");
+	background-repeat: none;
+}
+
+#menu .menu-button p.menu-text {
+	padding-top: 16px;
+	font-size: 16px;
+	text-align: center;
+}
+#page .content_hidden {
+	display: none;
+}
+
+#page .content_show {
+	margin-left: 60px;
+	clear: both;
+}
+
+.section h1 {
+	padding-top: 40px;
+	font-size: 40px;
+	margin-bottom: 20px;
+}
+
+.section ul li {
+	padding-bottom: 5px;
+}
+
+a {
+	text-decoration: none;
+	font-size: 16px;
+	color: black;
+}
+
+#advantages #advantages_top {
+	background-image:url(../images/advantage-top.gif);
+	background-repeat: no-repeat;
+	height: 14px;
+}
+
+#advantages #advantages_content {
+	//background-image:url(../images/advantage-content.gif);
+	background-repeat: no-repeat;
+	width: 717px;
+	background-color: #ffc2b8;
+}
+
+#advantages #advantages_content table tr td {
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+#advantages #advantages_content table tr td {
+	padding-bottom: 20px;
+}
+
+#advantages #advantages_content table tr .advantage {
+	font: Arial, Helvetica, sans-serif;
+	font-size: 35px;
+	width: 160px;
+	margin-top: auto;
+	margin-bottom: auto;
+	text-align: center;
+}
+
+#advantages #advantages_bottom{
+	background-image:url(../images/advantage-bottom.gif);
+	background-repeat: no-repeat;
+	height: 14px;
+}
+
+#price #price_top {
+	background-image:url(../images/price-top.gif);
+	background-repeat: no-repeat;
+	height: 12px;
+}
+
+#price #price_content {
+	//background-image:url(../images/price-content.gif);
+	background-repeat: no-repeat;
+	//height: 105px;
+	width: 717px;
+	background-color: #b1dfc5;
+}
+
+#price #price_content table tr {
+		width: 717px;
+}
+
+#price #price_content table tr td {
+	padding-bottom: 20px;
+	font: Arial, Helvetica, sans-serif;
+	font-size: 35px;
+	vertical-align: middle;
+}
+
+#price #price_content table tr .price {
+	width: 160px;
+	margin-top: auto;
+	margin-bottom: auto;
+	text-align: center;
+}
+
+#price #price_bottom{
+	background-image:url(../images/price-bottom.gif);
+	background-repeat: no-repeat;
+	height: 12px;
+}
+
+#page #footer {
+	width:726px;
+    height:37px;
+	//background-image: url(../images/footer.gif);
+	//background-repeat: non-repeat;
+	padding-top: 30px;
+	text-align: right;
+	clear: both;
+}
+
+
+#tutorial a, #shops a, #login a, #page #footer a {
+	text-decoration: underline;
+	color: blue;
+}

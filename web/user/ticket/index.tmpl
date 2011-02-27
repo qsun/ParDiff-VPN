@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title> ParDiff VPN 客服系统</title>
+    <link rel="stylesheet" type="text/css" href="/style/main.css" />
+</head>
+
+<body>
+<div id="wrapper">
+<div id="header">
+</div>
+
+<div id="contentwrapper">
+<div id="content">
+
+<form action="create.cgi" method="POST">
+<input type="hidden" name="type" value="new" />
+<table border=0>
+  <tr>
+    <td>
+      类别:
+      <select name="category">
+        <option value="business">商业合作</option>
+        <option value="account">帐号与登录</option>
+        <option value="setting">设置与使用</option>
+        <option selected value="misc">其他</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td>标题:
+      <input size="60" type="text" name="title" value="请输入标题" />
+    </td>
+  </tr>
+  <tr>
+    <td>用户名(可选):
+      <input id="username" type="text" name="username" value="<TMPL_VAR NAME=USERNAME>" />
+    </td>
+  </tr>
+  <tr>
+    <td>电子邮箱(必填):
+      <input id="email" size="60" type="text" name="email" value="<TMPL_VAR NAME=EMAIL>" />
+    </td>
+  </tr>
+  <tr>
+    <td>内容:
+    <br />
+    <textarea name="content" cols="80" rows="10">
+请在此输入
+    </textarea>
+    </td>
+  </tr>
+  <tr>
+    <td>请输入验证码:
+    <script src="http://api.recaptcha.net/challenge?k=6LdHVwsAAAAAAJf562_qCaDHPtqEv2jOF%2d%2dml5Ao" type="text/javascript"></script>
+<noscript><iframe frameborder="0" height="300" src="http://api.recaptcha.net/noscript?k=6LdHVwsAAAAAAJf562_qCaDHPtqEv2jOF%2d%2dml5Ao" width="500"></iframe><textarea cols="40" name="recaptcha_challenge_field" rows="3"></textarea><input name="recaptcha_response_field" type="hidden" value="manual_challenge" /></noscript>
+  <tr>
+    <td>
+      <input type="submit" value="提交" />
+    </td>
+  </tr>
+  </table>
+  </form>
+</div>
+</div>
+</div>
+  <script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-13264094-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+</body>
+</html>
