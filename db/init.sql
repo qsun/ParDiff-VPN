@@ -155,3 +155,5 @@ CREATE TABLE `transactions_records` (
   `note` varchar(2000) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB;
+
+GRANT ALL ON ppp.* TO 'vpn'@'localhost' IDENTIFIED BY 'vpn';
