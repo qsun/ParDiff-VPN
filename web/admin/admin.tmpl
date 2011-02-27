@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> 
+  <head>
+    <link rel="stylesheet" type="text/css" href="/style/main.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title><TMPL_VAR NAME=TITLE> | 管理员控制面板</title>
+  </head>
+  
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <table>
+          <tr>
+            <td class="admin_choice"><a href="main.cgi?">Dashboard</a></td>
+            <td class="admin_choice"><a href="main.cgi?op=list_tickets">列出Tickets</a></td>
+            <td class="admin_choice"><a href="main.cgi?op=list">用户列表</a></td>
+            <td class="admin_choice"><a href="main.cgi?op=sendmail_form">群发邮件</a></td>
+            <td class="admin_choice"><a href="main.cgi?op=change_admin_password_form">修改管理员密码</a></td>
+          </tr>
+      </table>
+      </div>
+      
+      <div id="contentwrapper">
+        <div id="content">
+          <TMPL_VAR NAME=CONTENT>
+        </div>
+      </div>
+      
+      <div id="footer">
+        <p>ParDiff Pty Ltd Copyright 2010</p>
+      </div>
+    </div>
+  </body> 
+</html>
+    
+    

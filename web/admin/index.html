@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="/style/main.css" />
+<title>管理员登录</title>
+</head>
+
+<body>
+<div id="wrapper">
+      <div id="logowrapper">
+        <h1>欢迎来到ParDiff VPN</h1>
+      </div>
+      <div id="contentwrapper">
+
+<h1>管理员登录</h1>
+
+<form action="main.cgi" method="post">
+在此输入验证码:
+<script src="http://api.recaptcha.net/challenge?k=6LdHVwsAAAAAAJf562_qCaDHPtqEv2jOF%2d%2dml5Ao" type="text/javascript"></script>
+<noscript><iframe frameborder="0" height="300" src="http://api.recaptcha.net/noscript?k=6LdHVwsAAAAAAJf562_qCaDHPtqEv2jOF%2d%2dml5Ao" width="500"></iframe><textarea cols="40" name="recaptcha_challenge_field" rows="3"></textarea><input name="recaptcha_response_field" type="hidden" value="manual_challenge" /></noscript>
+<input type="hidden" name="op" value="login"/>
+用户名: <input type="text" name="username" /><br>
+密码: <input type="password" name="password" /><br>
+<input type="submit" value="提交"/>
+</form>
+      </div> <!-- content wrapper-->
+      <div id="footer">
+        <p>ParDiff Pty Ltd Copyright 2010</p>
+      </div>
+    </div>
+</body> </html>

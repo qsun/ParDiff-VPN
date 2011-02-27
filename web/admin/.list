@@ -1,0 +1,8 @@
+admin.tmpl - admin interface template
+config.ini - database access configuration
+index.html - login interface
+main.cgi - the main cgi
+
+steps
+modify config.ini
+modify main.cgi for recaptcha settings
