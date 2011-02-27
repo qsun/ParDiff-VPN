@@ -1,0 +1,35 @@
+#!/bin/sh
+
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+iptables -F
+iptables -F -t nat
+iptables -t nat -A POSTROUTING -s 10.1.1.1/24 -o eth0 -j MASQUERADE
+iptables -t nat -A POSTROUTING -s 10.9.0.1/24 -o eth0 -j MASQUERADE
+iptables -t nat -A POSTROUTING -s 10.8.0.1/24 -o eth0 -j MASQUERADE
+
+# database security settings
+iptables -A INPUT -s 10.1.1.1/24 -p tcp  --dport 3306 -j DROP
+iptables -A INPUT -s 10.8.0.1/24 -p tcp  --dport 3306 -j DROP
+iptables -A INPUT -s 10.9.0.1/24 -p tcp  --dport 3306 -j DROP
+iptables -A INPUT -s 127.0.0.1 -p tcp --dport 3306 -j ACCEPT
+iptables -A INPUT -p tcp --dport 3306 -j DROP
+
+# do now allow port 25, no outbound spam
+iptables -A INPUT -p tcp --dport 25 -j DROP
+
+# no ebay access
+iptables -A INPUT -j DROP -d 66.211.160.88       
+iptables -A INPUT -j DROP -d 66.135.205.13       
+iptables -A INPUT -j DROP -d 66.135.205.14       
+iptables -A INPUT -j DROP -d 66.211.160.87       
+iptables -A INPUT -j DROP -d 64.4.241.45         
+iptables -A INPUT -j DROP -d 66.211.169.66       
+iptables -A INPUT -j DROP -d 64.4.241.61         
+iptables -A INPUT -j DROP -d 66.211.169.3        
+iptables -A INPUT -j DROP -d 66.135.215.61       
+iptables -A INPUT -j DROP -d 66.135.200.23       
+
+# 443 -> 1194 port forwarding, in case ISP bans 1194 openvpn 
+iptables -t nat -I PREROUTING -p udp -d 67.223.233.193  --dport 443 -j REDIRECT --to-ports 1194
+iptables -t nat -I PREROUTING -p udp -d 173.230.156.83  --dport 443 -j REDIRECT --to-ports 1194
