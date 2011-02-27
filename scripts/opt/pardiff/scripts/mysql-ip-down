@@ -1,0 +1,43 @@
+#!/usr/bin/perl
+use warnings;
+use strict;
+
+use Data::Dumper;
+
+use DBI;
+
+my $dsn = "DBI:mysql:database=ppp;host=127.0.0.1;port=3306";
+my $dbh = DBI->connect($dsn, 'vpn', 'vpn');
+
+
+# $VAR1 = 'ppp0';
+# $VAR2 = '/dev/pts/1';
+# $VAR3 = '115200';
+# $VAR4 = '10.1.1.1';
+# $VAR5 = '10.1.1.10';
+# $VAR6 = '114.78.118.213';
+# $VAR7 = 'qsun';
+# $VAR8 = '1424';
+# $VAR9 = '0';
+# $VAR10 = '6';
+
+if (scalar(@ARGV) != 10) {
+    open FH, '>/tmp/mysql-ip-down';
+    print FH  'we are fucked.', "\n";
+
+    print FH Dumper(@ARGV);
+    
+    exit(1);
+}
+
+my ($interface, $dev, $bps, $server_ip, $client_ip, $ip, $username, $send, $recv, $duration) = @ARGV;
+
+my $sth = $dbh->prepare("UPDATE connections SET connection_traffic = ?, end_time = now() WHERE username = ? AND end_time < start_time AND interface = ?");
+$sth->execute($send + $recv, $username, $interface);
+
+$sth = $dbh->prepare("UPDATE login SET credit = credit - ? WHERE username = ? LIMIT 1");
+$sth->execute($send + $recv, $username);
+
+
+$sth = $dbh->prepare("INSERT INTO logs (ts, event) VALUES (NOW(), ?)");
+$sth->execute("[logout] User: ${username}, IP: ${ip}, traffic: " . ($send + $recv) . ' bytes');

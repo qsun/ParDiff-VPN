@@ -1,0 +1,21 @@
+script list
+
+  -- [M] utility script, called by admin manually
+  -- [C] cronjob script, called from crontab
+  -- [P] gnuplot script, called by gnuplot
+  -- [S] generic script, called by program
+
+[M] generate-coupons.pl - generate coupons
+[M] check-status-coupon.pl - check if a coupon is already used or not
+
+[C] connections_st.pl - record concurrent TCP/UDP connections number periodically, can be treated as system health indicator
+[C] traffic_st.pl - record network usage information (traffic) periodically
+[C] data_acq.pl - retrieve and format system status from database and output to corresponding files
+[C] expire.pl - close/warn expired accounts
+[C] openvpn-refresh.pl - log openvpn users' usage situation and write back to database
+[C] update_traffic.pl - terminate all connections without positive credit
+
+[P] draw - draw connections chart
+[P] draw-traffic - draw traffic chart
+
+[S] mysql-ip-{down,up} - scripts called by pppd, check if user's billing info

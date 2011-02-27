@@ -1,0 +1,41 @@
+#!/usr/bin/perl
+use warnings;
+use strict;
+
+use Data::Dumper;
+
+use DBI;
+
+my $dsn = "DBI:mysql:database=ppp;host=127.0.0.1;port=3306";
+my $dbh = DBI->connect($dsn, 'vpn', 'vpn');
+
+# li144-65:/tmp# cat mysql-ip-up
+# $VAR1 = 'ppp0';
+# $VAR2 = '/dev/pts/1';
+# $VAR3 = '115200';
+# $VAR4 = '10.1.1.1';
+# $VAR5 = '10.1.1.10';
+# $VAR6 = '114.78.118.213';
+# $VAR7 = 'qsun';
+
+if (scalar(@ARGV) != 7) {
+    open FH, '>/tmp/mysql-ip-up';
+    print FH 'we are fucked.', "\n";
+
+    print FH Dumper(@ARGV);
+    
+    exit(1);
+}
+
+my ($interface, $dev, $bps, $server_ip, $client_ip, $ip, $username) = @ARGV;
+my $ppid = getppid();
+
+# close old connection
+my $sth = $dbh->prepare("UPDATE connections SET end_time = NOW() where interface = ? AND (end_time < start_time OR end_time IS NULL)");
+$sth->execute($interface);
+
+$sth = $dbh->prepare("INSERT INTO connections (username, ip, interface, ppid) VALUES (?, ?, ?, ?)");
+$sth->execute($username, $ip, $interface, $ppid);
+
+$sth = $dbh->prepare("INSERT INTO logs (ts, event) VALUES (NOW(), ?)");
+$sth->execute("[login] User: ${username}, IP: ${ip}");

@@ -1,0 +1,4 @@
+set terminal png
+set output "/var/www/vpn.pardiff.com/admin/ccconnections.png"
+
+plot "/tmp/conn-stat"

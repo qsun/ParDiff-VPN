@@ -1,0 +1,4 @@
+set terminal png
+set output "/var/www/vpn.pardiff.com/admin/trafficc.png"
+
+plot "/tmp/traffic-stat"
