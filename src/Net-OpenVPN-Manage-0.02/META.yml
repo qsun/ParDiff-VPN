@@ -1,0 +1,13 @@
+---
+name: Net-OpenVPN-Manage
+version: 0.01
+author: Aaron Meyer <meyeaard@cpan.org>
+abstract: A perl module to manage an OpenVPN instance via it's network management port.
+license: perl
+requires:
+  Net::Telnet
+provides:
+  Net::OpenVPN::Manage:
+    file: lib/Net/OpenVPN/Manage.pm
+    version: 0.01
+    

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# gcc -s mysql-ovpn.c  -o mysql-ovpn.o  -I /usr/include/mysql/ -lmysqlclient
+gcc -O2 -Wall -fPIC -c -I../.. -I/usr/include/mysql $1.c 
+gcc -fPIC -shared -Wl,-soname,$1.so -lmysqlclient -o $1.so $1.o -lc

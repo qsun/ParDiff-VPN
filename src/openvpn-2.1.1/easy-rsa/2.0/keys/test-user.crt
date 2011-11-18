@@ -1,0 +1,71 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 3 (0x3)
+        Signature Algorithm: sha1WithRSAEncryption
+        Issuer: C=AU, ST=NSW, L=Sydney, O=SIS, CN=pardiff.com/emailAddress=support@pardiff.com
+        Validity
+            Not Before: Feb 15 12:49:21 2010 GMT
+            Not After : Feb 13 12:49:21 2020 GMT
+        Subject: C=US, ST=CA, L=SanFrancisco, O=Fort-Funston, CN=test-user/emailAddress=me@myhost.mydomain
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+            RSA Public Key: (1024 bit)
+                Modulus (1024 bit):
+                    00:c7:ec:de:95:a1:c8:d2:bd:ee:87:de:1d:42:b2:
+                    72:5a:56:88:4c:8e:02:ab:5c:1a:7c:df:dd:20:6c:
+                    21:5f:44:49:55:20:87:a4:84:3c:65:d3:86:51:4e:
+                    6c:ae:46:a7:5e:3e:56:5f:bf:27:b2:85:84:12:2d:
+                    b4:7d:62:cf:7d:ef:ef:91:e9:a8:ad:8e:da:3b:56:
+                    ef:05:3f:f5:15:80:4b:5e:85:9f:70:15:43:1b:e8:
+                    7d:c6:87:dc:a7:43:b1:93:c4:a4:ec:83:3e:a7:2a:
+                    d2:0b:84:06:f3:cc:95:d7:a1:4c:79:70:91:4b:ce:
+                    dd:97:1c:a5:4b:1b:4a:9b:ab
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Comment: 
+                Easy-RSA Generated Certificate
+            X509v3 Subject Key Identifier: 
+                8B:19:29:A0:4C:C5:9A:86:0C:82:E0:8C:79:81:E0:33:FE:76:42:66
+            X509v3 Authority Key Identifier: 
+                keyid:BF:3B:BE:27:D5:8F:91:E8:04:92:34:1A:33:7B:91:50:C4:63:3E:C2
+                DirName:/C=AU/ST=NSW/L=Sydney/O=SIS/CN=pardiff.com/emailAddress=support@pardiff.com
+                serial:D4:31:38:7B:0B:F1:79:42
+
+            X509v3 Extended Key Usage: 
+                TLS Web Client Authentication
+            X509v3 Key Usage: 
+                Digital Signature
+    Signature Algorithm: sha1WithRSAEncryption
+        ac:ea:1b:18:35:00:c1:19:d9:1d:0c:1e:cc:4d:bd:45:9f:3f:
+        4d:e7:5a:1a:91:69:9f:d6:33:51:78:cc:01:c9:1f:b8:57:4a:
+        4b:d1:07:d4:50:c2:f7:cd:84:bb:46:37:77:cc:d4:08:b7:56:
+        67:6e:6f:79:c1:9a:aa:35:76:3f:d1:10:89:e2:6c:a0:ee:27:
+        d5:4f:9c:58:e5:cf:5c:34:35:12:df:6e:af:c5:66:a2:20:44:
+        e3:41:73:89:a6:87:4e:d7:32:b7:ab:56:11:39:a6:2b:ec:37:
+        78:21:36:00:b6:a2:7f:ee:b1:92:f2:94:c2:c5:86:18:31:ea:
+        b1:16
+-----BEGIN CERTIFICATE-----
+MIIDkzCCAvygAwIBAgIBAzANBgkqhkiG9w0BAQUFADB0MQswCQYDVQQGEwJBVTEM
+MAoGA1UECBMDTlNXMQ8wDQYDVQQHEwZTeWRuZXkxDDAKBgNVBAoTA1NJUzEUMBIG
+A1UEAxMLcGFyZGlmZi5jb20xIjAgBgkqhkiG9w0BCQEWE3N1cHBvcnRAcGFyZGlm
+Zi5jb20wHhcNMTAwMjE1MTI0OTIxWhcNMjAwMjEzMTI0OTIxWjB/MQswCQYDVQQG
+EwJVUzELMAkGA1UECBMCQ0ExFTATBgNVBAcTDFNhbkZyYW5jaXNjbzEVMBMGA1UE
+ChMMRm9ydC1GdW5zdG9uMRIwEAYDVQQDEwl0ZXN0LXVzZXIxITAfBgkqhkiG9w0B
+CQEWEm1lQG15aG9zdC5teWRvbWFpbjCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkC
+gYEAx+zelaHI0r3uh94dQrJyWlaITI4Cq1wafN/dIGwhX0RJVSCHpIQ8ZdOGUU5s
+rkanXj5WX78nsoWEEi20fWLPfe/vkemorY7aO1bvBT/1FYBLXoWfcBVDG+h9xofc
+p0Oxk8Sk7IM+pyrSC4QG88yV16FMeXCRS87dlxylSxtKm6sCAwEAAaOCASgwggEk
+MAkGA1UdEwQCMAAwLQYJYIZIAYb4QgENBCAWHkVhc3ktUlNBIEdlbmVyYXRlZCBD
+ZXJ0aWZpY2F0ZTAdBgNVHQ4EFgQUixkpoEzFmoYMguCMeYHgM/52QmYwgaYGA1Ud
+IwSBnjCBm4AUvzu+J9WPkegEkjQaM3uRUMRjPsKheKR2MHQxCzAJBgNVBAYTAkFV
+MQwwCgYDVQQIEwNOU1cxDzANBgNVBAcTBlN5ZG5leTEMMAoGA1UEChMDU0lTMRQw
+EgYDVQQDEwtwYXJkaWZmLmNvbTEiMCAGCSqGSIb3DQEJARYTc3VwcG9ydEBwYXJk
+aWZmLmNvbYIJANQxOHsL8XlCMBMGA1UdJQQMMAoGCCsGAQUFBwMCMAsGA1UdDwQE
+AwIHgDANBgkqhkiG9w0BAQUFAAOBgQCs6hsYNQDBGdkdDB7MTb1Fnz9N51oakWmf
+1jNReMwByR+4V0pL0QfUUML3zYS7Rjd3zNQIt1Znbm95wZqqNXY/0RCJ4myg7ifV
+T5xY5c9cNDUS326vxWaiIETjQXOJpodO1zK3q1YROaYr7Dd4ITYAtqJ/7rGS8pTC
+xYYYMeqxFg==
+-----END CERTIFICATE-----

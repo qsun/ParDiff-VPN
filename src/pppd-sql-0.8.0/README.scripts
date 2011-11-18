@@ -1,0 +1,50 @@
+Introduction
+============
+
+The first support for any kind of importable SQL-Dumps was introduced
+in version 0.5.0 of 'pppd-sql' to simplify the installation process.
+
+Which empty SQL-Dumps are currently included?
+=============================================
+
+The list below includes a list of included empty SQL-Dumps and an
+example how to import them. All dumps are using UTF-8 as charset
+encoding.
+
+  * MySQL
+    - File     = ppp-login-mysql.sql
+    - Command  = mysql -u root -p < ppp-login-mysql.sql
+
+  * PostgreSQL
+    - File     = ppp-login-postgresql.sql
+    - Command  = psql -U root -d postgres -f ppp-login-postgresql.sql
+
+The result will be a database with the name 'ppp' and one table 'login'.
+
+  * login
+    - id
+      contains auto increment value.
+    - username
+      contains the username of the tunnel client.
+    - password
+      contains the password of the tunnel client.
+    - status
+      contains the login status of the client.
+    - clientip
+      contains the client ip address for the connection.
+    - serverip
+      contains the server ip address for the connection.
+
+Which permissions are required for the SQL User?
+================================================
+
+The list below includes a bunch of commands which should be executed at
+the SQL-Server to give the user the required privileges.
+
+  * MySQL
+    - GRANT SELECT, UPDATE ON
+        ppp.login TO '<username>'@'<ip>' IDENTIFIED BY '<password>'
+
+  * PostgreSQL
+    - CREATE USER '<username>' WITH PASSWORD '<password>'
+    - GRANT SELECT, UPDATE ON login TO '<username>'

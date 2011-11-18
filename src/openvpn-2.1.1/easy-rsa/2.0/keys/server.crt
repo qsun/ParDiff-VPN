@@ -1,0 +1,73 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 1 (0x1)
+        Signature Algorithm: sha1WithRSAEncryption
+        Issuer: C=AU, ST=NSW, L=Sydney, O=SIS, CN=pardiff.com/emailAddress=support@pardiff.com
+        Validity
+            Not Before: Feb 15 11:24:25 2010 GMT
+            Not After : Feb 13 11:24:25 2020 GMT
+        Subject: C=AU, ST=NSW, L=SanFrancisco, O=Fort-Funston, CN=server/emailAddress=me@myhost.mydomain
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+            RSA Public Key: (1024 bit)
+                Modulus (1024 bit):
+                    00:e0:1b:45:dd:31:87:2f:02:82:5e:ba:01:1e:d5:
+                    4b:cd:2a:f9:93:64:c8:17:6d:69:82:2e:5d:aa:e7:
+                    0f:5b:0a:d0:cc:a5:51:7c:c1:d0:28:28:25:9e:67:
+                    d6:7c:23:8f:3a:2f:65:c2:dc:54:6b:30:e4:52:c0:
+                    07:ad:62:16:4d:93:20:38:46:a3:76:d0:a2:8a:99:
+                    07:5a:64:a9:24:37:f2:14:e4:4f:a3:db:53:99:7f:
+                    91:cf:ff:9d:df:92:d6:c5:bc:f7:48:0d:ff:6f:3d:
+                    7d:0a:52:d6:bc:05:ba:b6:71:0f:cd:f5:1f:31:2c:
+                    2e:d7:e6:b1:4d:18:27:66:69
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Cert Type: 
+                SSL Server
+            Netscape Comment: 
+                Easy-RSA Generated Server Certificate
+            X509v3 Subject Key Identifier: 
+                16:FE:AA:83:1A:13:3E:D1:F0:23:93:03:0F:59:A3:AD:9A:A4:9B:C8
+            X509v3 Authority Key Identifier: 
+                keyid:BF:3B:BE:27:D5:8F:91:E8:04:92:34:1A:33:7B:91:50:C4:63:3E:C2
+                DirName:/C=AU/ST=NSW/L=Sydney/O=SIS/CN=pardiff.com/emailAddress=support@pardiff.com
+                serial:D4:31:38:7B:0B:F1:79:42
+
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication
+            X509v3 Key Usage: 
+                Digital Signature, Key Encipherment
+    Signature Algorithm: sha1WithRSAEncryption
+        81:02:d5:ea:6c:64:bd:1a:64:33:73:53:ea:b8:8b:a4:f4:a1:
+        2d:a9:68:04:0b:9b:73:63:03:12:fd:e3:64:37:74:38:f5:74:
+        54:21:c9:df:b3:99:10:47:a6:c4:9f:4d:2e:c9:cb:bf:3b:c2:
+        32:07:c8:9e:48:3b:98:c1:11:fd:29:0c:36:31:b8:67:3a:09:
+        74:89:d5:a8:a4:a3:db:28:be:e7:f6:cf:85:6d:73:23:7f:ee:
+        3f:a8:79:3e:55:dc:93:97:a3:c0:47:21:ed:7c:47:19:e5:43:
+        e1:36:54:8a:71:4f:b5:a0:3f:91:b0:dd:b6:67:9e:3e:54:8a:
+        34:c2
+-----BEGIN CERTIFICATE-----
+MIIDqzCCAxSgAwIBAgIBATANBgkqhkiG9w0BAQUFADB0MQswCQYDVQQGEwJBVTEM
+MAoGA1UECBMDTlNXMQ8wDQYDVQQHEwZTeWRuZXkxDDAKBgNVBAoTA1NJUzEUMBIG
+A1UEAxMLcGFyZGlmZi5jb20xIjAgBgkqhkiG9w0BCQEWE3N1cHBvcnRAcGFyZGlm
+Zi5jb20wHhcNMTAwMjE1MTEyNDI1WhcNMjAwMjEzMTEyNDI1WjB9MQswCQYDVQQG
+EwJBVTEMMAoGA1UECBMDTlNXMRUwEwYDVQQHEwxTYW5GcmFuY2lzY28xFTATBgNV
+BAoTDEZvcnQtRnVuc3RvbjEPMA0GA1UEAxMGc2VydmVyMSEwHwYJKoZIhvcNAQkB
+FhJtZUBteWhvc3QubXlkb21haW4wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGB
+AOAbRd0xhy8Cgl66AR7VS80q+ZNkyBdtaYIuXarnD1sK0MylUXzB0CgoJZ5n1nwj
+jzovZcLcVGsw5FLAB61iFk2TIDhGo3bQooqZB1pkqSQ38hTkT6PbU5l/kc//nd+S
+1sW890gN/289fQpS1rwFurZxD831HzEsLtfmsU0YJ2ZpAgMBAAGjggFCMIIBPjAJ
+BgNVHRMEAjAAMBEGCWCGSAGG+EIBAQQEAwIGQDA0BglghkgBhvhCAQ0EJxYlRWFz
+eS1SU0EgR2VuZXJhdGVkIFNlcnZlciBDZXJ0aWZpY2F0ZTAdBgNVHQ4EFgQUFv6q
+gxoTPtHwI5MDD1mjrZqkm8gwgaYGA1UdIwSBnjCBm4AUvzu+J9WPkegEkjQaM3uR
+UMRjPsKheKR2MHQxCzAJBgNVBAYTAkFVMQwwCgYDVQQIEwNOU1cxDzANBgNVBAcT
+BlN5ZG5leTEMMAoGA1UEChMDU0lTMRQwEgYDVQQDEwtwYXJkaWZmLmNvbTEiMCAG
+CSqGSIb3DQEJARYTc3VwcG9ydEBwYXJkaWZmLmNvbYIJANQxOHsL8XlCMBMGA1Ud
+JQQMMAoGCCsGAQUFBwMBMAsGA1UdDwQEAwIFoDANBgkqhkiG9w0BAQUFAAOBgQCB
+AtXqbGS9GmQzc1PquIuk9KEtqWgEC5tzYwMS/eNkN3Q49XRUIcnfs5kQR6bEn00u
+ycu/O8IyB8ieSDuYwRH9KQw2MbhnOgl0idWopKPbKL7n9s+FbXMjf+4/qHk+VdyT
+l6PARyHtfEcZ5UPhNlSKcU+1oD+RsN22Z54+VIo0wg==
+-----END CERTIFICATE-----

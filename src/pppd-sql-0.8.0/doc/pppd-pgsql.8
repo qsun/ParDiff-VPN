@@ -1,0 +1,132 @@
+.\" Copyright (c) 2008-2009 Maik Broemme <mbroemme@plusserver.de>
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 3 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program.  If not, see <http://www.gnu.org/licenses/>.
+.TH pppd-pgsql 8 2009-06-30 "The PPP PostgreSQL plugin"
+.SH NAME
+pgsql.so \- PostgreSQL authentication plugin for
+.BR pppd (8)
+.SH SYNOPSIS
+.B pppd
+[
+.I options
+]
+plugin pgsql.so
+.SH DESCRIPTION
+.LP
+The PostgreSQL plugin for pppd permits pppd to perform Password Authentication Protocol (PAP), Challenge Handshake Authentication Protocol (CHAP), MS-CHAP and MS-CHAPv2 authentication against a PostgreSQL server instead of the usual \fI/etc/ppp/pap-secrets\fP and \fI/etc/ppp/chap-secrets\fP files.
+.SH OPTIONS
+The PostgreSQL plugin introduces some additional pppd options:
+.TP
+\fBpgsql-host\fP \fIhost\fP
+The PostgreSQL server host to connect.
+.TP
+\fBpgsql-port\fP \fIport\fP
+The PostgreSQL server port to connect.
+.TP
+\fBpgsql-user\fP \fIusername\fP
+The PostgreSQL username for database authentication.
+.TP
+\fBpgsql-pass\fP \fIpassword\fP
+The PostgreSQL password for database authentication.
+.TP
+\fBpgsql-pass-encryption\fP \fIencryption\fP
+The PostgreSQL encryption type used for the passwords stored in the PostgreSQL database in \fBpgsql-column-pass\fP. Possible values are:
+.RS 7
+.TP 8
+\fBNONE\fP  \(bu
+Passwords are stored in plaintext.
+.TP
+\fBCRYPT\fP \(bu
+Passwords are stored using UNIX crypt() algorithm.
+.TP
+\fBMD5\fP   \(bu
+Passwords are stored using MD5 one-way hashing algorithm.
+.TP
+\fBAES\fP   \(bu
+Passwords are stored using AES (128-Bit Electronic Codebook Mode) symmetric cipher algorithm.
+.RE
+.TP
+\fBpgsql-pass-key\fP \fIkey\fP
+The key for the symmetric block cipher or the salt for the one-way hash function. This paramter is required if \fBpgsql-pass-encryption\fP is set to \fBAES\fP or \fBCRYPT\fP.
+.TP
+\fBpgsql-database\fP \fIdatabase\fP
+The PostgreSQL database to connect.
+.TP
+\fBpgsql-table\fP \fItable\fP
+The PostgreSQL table to look for username, password and client ip address which should be assigned.
+.TP
+\fBpgsql-column-user\fP \fIusername-field\fP
+The PostgreSQL column which stores the username.
+.TP
+\fBpgsql-column-pass\fP \fIpassword-field\fP
+The PostgreSQL column which stores the password.
+.TP
+\fBpgsql-column-client-ip\fP \fIip-address-field\fP
+The PostgreSQL column which stores the client ip address.
+.TP
+\fBpgsql-column-server-ip\fP \fIip-address-field\fP
+The PostgreSQL column which stores the server ip address.
+.TP
+\fBpgsql-column-update\fP \fIupdate-field\fP
+The PostgreSQL column which should be updated after authentication and ip negotiation. This field is only useful, if you use \fBpgsql-exclusive\fP (see below) too. Please keep in mind that this option requires write access to the database.
+.TP
+\fBpgsql-condition\fP \fIquery\fP
+This is an extra PostgreSQL condition, if you need to join additional tables for username verification. The condition has to be valid for the read queries. (Default: not set)
+.TP
+\fBpgsql-exclusive\fP
+If this option is set, the plugin will forbid concurrent connections from the same user. The plugin itself don't know anything about a second connection so this information is stored in database. It is required to set \fBpgsql-column-update\fP to a value in \fBpgsql-table\fP which can be updated and \fBpgsql-authoritative\fP (see below) must be used. (Default: not set)
+.TP
+\fBpgsql-authoritative\fP
+If this option is set, the plugin will authenticate only against the database and if it fails the link will be terminated. If this option is not set, the plugin will fallback on authentication failure to usual \fI/etc/ppp/pap-secrets\fP and \fI/etc/ppp/chap-secrets\fP files. (Default: not set)
+.TP
+\fBpgsql-ignore-multiple\fP
+If this option is set, the plugin will ignore multiple result sets with the same username. The plugin will take the first entry and verifiy it against password. If this option is not set, the plugin will deny authentication and terminate the link. (Default: not set)
+.TP
+\fBpgsql-ignore-null\fP
+If this option is set, the plugin will treat NULL as string and verify username or password against it. If this option is not set, the plugin will deny authentication and terminate the link. (Default: not set)
+.TP
+\fBpgsql-connect-timeout\fP \fItimeout\fP
+The PostgreSQL connection timeout. (Default: 5 seconds)
+.TP
+\fBpgsql-retry-connect\fP \fIretries\fP
+The PostgreSQL connection retry limit, if connection failed it will be retried as often as in \fIretries\fP specified. (Default: 5)
+.TP
+\fBpgsql-retry-query\fP \fIretries\fP
+The PostgreSQL query retry limit, if query failed (maybe the table or row is locked) it will be retried as often as in \fIretries\fP specified. (Default: 5)
+.TP
+\fBpgsql-ip-up\fP \fI/etc/ppp/ip-up-pgsql\fP
+If this option is set, the plugin will execute the given script \fI/etc/ppp/ip-up-pgsql\fP when IPCP has come up after setting the login status inside database. The difference with the PPP internal version is, that this version adds the username as additional parameter and blocks the execution of the PPP daemon until the script returns. (Default: not set)
+.TP
+\fBpgsql-ip-up-fail\fP
+If this option is set, the exit code of the script is evaluated and if it is non-zero, the link will be terminated. If \fBpgsql-exclusive\fP, \fBpgsql-authoritative\fP and \fBpgsql-column-update\fP are set, the login status inside database was changed due to successful authentication and IPCP negotiation. It will be reverted if these options are set. (Default: not set)
+.TP
+\fBpgsql-ip-down\fP \fI/etc/ppp/ip-down-pgsql\fP
+If this option is set, the plugin will execute the given script \fI/etc/ppp/ip-down-pgsql\fP when IPCP goes down before setting the login status inside database. The difference with the PPP internal version is, that this version adds the username, received bytes, transmitted bytes and link duration as additional parameters and blocks the execution of the PPP daemon until the script returns. It does not evaluate the exit code. (Default: not set)
+.TP
+\fBpgsql-ip-down-fail\fP
+If this option is set, the exit code of the script is evaluated and if it is non-zero, the link will be terminated. Due to the fact, that the database is touched after successful execution of the script, nothing will happen to it. (Default: not set)
+.SH SEE ALSO
+.BR pppd (8)
+.SH AUTHOR
+Check documentation.
+.TP
+pppd-sql is (c) 2008-2009
+.B Maik Broemme <mbroemme@plusserver.de>
+.PP
+The above e-mail address can be used to send bug reports, feedbacks or plugin enhancements.

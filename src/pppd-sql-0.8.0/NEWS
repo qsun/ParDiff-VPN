@@ -1,0 +1,109 @@
+Changes version 0.8.0 (2009-07-08)
+==================================
+
+    * Added support for fetching server ip address from database.
+
+    * Added support for evaluating the return value of the up and down
+      scripts.
+
+    * Renamed the following configuration options:
+
+      - mysql-column-ip -> mysql-column-client-ip
+      - pgsql-column-ip -> mysql-column-client-ip
+
+    * Six new PPP configuration options were added:
+
+      - mysql-ip-up-fail
+      - mysql-ip-down-fail
+      - mysql-column-server-ip
+      - pgsql-ip-up-fail
+      - pgsql-ip-down-fail
+      - pgsql-column-server-ip
+
+Changes version 0.7.0 (2009-01-28)
+==================================
+
+    * Added support for exclusive read and write lock on the selected
+      row.
+
+    * Added support for ip configuration scripts with additional
+      parameters and blocking support.
+
+    * Four new PPP configuration options were added:
+
+        - mysql-ip-up
+        - mysql-ip-down
+        - pgsql-ip-up
+        - pgsql-ip-down
+
+Changes version 0.6.0 (2009-01-18)
+==================================
+
+    * Added support for concurrent connection handling of single users
+      across multiple tunnel servers.
+
+    * Six new PPP configuration options were added:
+
+        - mysql-port
+        - mysql-column-update
+        - mysql-exclusive
+        - pgsql-port
+        - pgsql-column-update
+        - pgsql-exclusive
+
+    * Removed built-in failover support. (It is impossible with the
+      concurrent connection handler and should be made with separate
+      database utilities)
+
+Changes version 0.5.0 (2009-01-12)
+==================================
+
+    * Added support for authentication fallback against usual files
+      '/etc/ppp/pap-secrets' or '/etc/ppp/chap-secrets'.
+
+    * Two new PPP configuration options were added:
+
+        - mysql-authoritative
+        - pgsql-authoritative
+
+    * Added 'scripts' directory with database schemas for import.
+
+Changes version 0.4.0 (2008-12-07)
+==================================
+
+    * Added support for encrypted Password storage inside database.
+      (MD5 and crypt() as hash and AES as symmetric block cipher)
+
+    * Four new PPP configuration options were added:
+
+        - mysql-pass-encryption
+        - mysql-pass-key
+        - pgsql-pass-encryption
+        - pgsql-pass-key
+
+Changes version 0.3.0 (2008-11-28)
+==================================
+
+    * Added support for Password Authentication Protocol (PAP) via
+      MySQL and PostgreSQL.
+
+    * Added switch to specify which database backends should be build.
+      Some examples:
+
+        --enable-mysql
+        --enable-postgresql
+
+Changes version 0.2.0 (2008-11-23)
+==================================
+
+    * Added override path for PPP plugin directory to autoconf build
+      environment. (New configure switch: '--with-plugin-path=<path>'
+
+    * Added check if installed PPP version is working and has plugin
+      support.
+
+Initial version 0.1.0 (2008-11-20)
+==================================
+
+    * initial version for PPP Server, providing CHAP authentication via
+      MySQL and PostgreSQL database.

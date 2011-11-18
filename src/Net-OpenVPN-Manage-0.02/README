@@ -1,0 +1,33 @@
+Net::OpenVPN::Manage
+
+Interact with a running OpenVPN 2.0.X process 
+via it's management interface.
+
+Perl Version:
+	5.6.x or 5.8.x both work fine.
+
+Requirements: 
+	Net::Telnet - I use version 3.03, but any should do.
+
+Installation: 
+	Un-tar-gzip the archive, this is pure perl so no compiler needed
+Win32 systems will need the free nmake tool from microsoft per usual.
+There really isn't anything to test against when installing so no testing is available.
+
+Unix/Linux:
+  perl ./Makefile.PL
+  make
+  make install
+  
+Win32:
+  perl .\Makefile.PL
+  nmake
+  nmake install
+
+
+Note:
+	This module is fairly rudimentary, if you have any problems give it a quick 
+look through. I have tested it against beta 2.0 OpenVPN releases and am using it now
+with the 2.0.7 release. I have NOT tried this with the current BETA 2.1 release.
+
+For information on how to use the supplied methods do a `perldoc Net::OpenVPN::Manage`

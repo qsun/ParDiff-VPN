@@ -1,0 +1,15 @@
+Bugs:
+-al momento non se ne conoscono, in caso di scoperta di Bugs inviare una email
+a lan@ush.it
+
+Mysql Database:
+- la password è criptata e viene inserita trammite la funzione PASSWORD() di
+mysql (la password dell'utente test è test)
+
+Compilazione:
+
+- il programma richiede alcune librerie, prima di pensare a incompatibilità
+  variegate assicurarsi che siano tutte presenti sul  sistema.
+
+
+ush team - http://www.ush.it

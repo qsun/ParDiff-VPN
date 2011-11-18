@@ -1,0 +1,102 @@
+Introduction
+============
+
+The first support for any kind of encryption was introduced in version
+0.4.0 of 'pppd-sql' and currently it supports the symmetric block ciphers
+and one-way hashes below.
+
+Which ciphers and hashes are supported?
+=======================================
+
+The list below includes a list of supported ciphers and one-way hashes
+and an example how to use it in MySQL. (It can be easily adapted for
+other databases)
+
+  * UNIX crypt() (non-standard DES-56)
+    - OpenSSL extension
+    - PAP support
+
+      mysql> SELECT HEX(ENCRYPT('foo', 'bar'));
+      +----------------------------+
+      | HEX(ENCRYPT('foo', 'bar')) |
+      +----------------------------+
+      | 62613454754431696F7A547877 | 
+      +----------------------------+
+
+  * MD5-128
+    - OpenSSL extension
+    - PAP support
+
+      mysql> SELECT MD5('foo');
+      +----------------------------------+
+      | MD5('foo')                       |
+      +----------------------------------+
+      | acbd18db4cc2f85cedef654fccc4a4d8 | 
+      +----------------------------------+
+
+  * AES-128-ECB
+    - OpenSSL extension
+    - PAP, CHAP, MS-CHAPv1 and MS-CHAPv2 support
+
+      mysql> SELECT HEX(AES_ENCRYPT('foo', 'bar'));
+      +----------------------------------+
+      | HEX(AES_ENCRYPT('foo', 'bar'))   |
+      +----------------------------------+
+      | 93F254924801B8B0F000571DFD8C4A5E | 
+      +----------------------------------+
+
+How are the cipher and hashes stored?
+=====================================
+
+Every encrypted data is stored as a hexadecimal number. This format is
+used because it can be represented in every database with a simple
+VARCHAR field.
+
+The goal of 'pppd-sql' is to support most of the available databases,
+without using specific database extensions. The encryption part will be
+done completely by OpenSSL.
+
+What are the differences between PAP and CHAP?
+==============================================
+
+The passwords for PAP can be stored using a one-way hash inside database,
+because if the link should be established the account information is send
+in plaintext to the server.
+
+The problem arise with the newer protocol. CHAP is an authentication
+scheme used by Point to Point Protocol (PPP) servers to validate the
+identity of remote clients by using a three-way handshake. This happens
+at the time of establishing the initial link, and may happen again at
+any time afterwards. The verification is based on a shared secret (such
+as the client user's password).
+
+   1.) After the completion of the link establishment phase, the
+       authenticator sends a "challenge" message to the peer.
+   2.) The peer responds with a value calculated using a one-way
+       hash function, such as an MD5 checksum hash.
+   3.) The authenticator checks the response against its own
+       calculation of the expected hash value. If the values match,
+       the authenticator acknowledges the authentication; otherwise
+       it terminates the connection.
+
+A fourth step may happen, but this is not required and won't be made
+by every PPP server.
+
+   4.) At random intervals the authenticator sends a new challenge
+       to the peer and repeats steps 1 through 3.
+
+CHAP provides protection against playback attack by the peer through the
+use of an incrementally changing identifier and of a variable challenge-
+value. CHAP requires that both the client and server know the plaintext
+of the secret, although it is never sent over the network.
+
+Why should I use encryption?
+============================
+
+The answer is simple. This functionality will not increase the security
+of PAP or CHAP (MS-CHAPv1 and MS-CHAPv2), but if you have a lot of
+accounts and many people with access to your database it will even
+secure the storage place. If someone break-in your database, the
+passwords are still safe, only the plugin on the PPP server need the
+decryption key and if someone break-in there, you have lost regardless
+of encryption or not. ;)

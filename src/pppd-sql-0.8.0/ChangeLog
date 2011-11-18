@@ -1,0 +1,650 @@
+2009-07-07 23:12  Maik Broemme <mbroemme@plusserver.de>
+
+	* pppd-sql 0.8.0 release
+
+2009-07-07 23:11  Maik Broemme <mbroemme@plusserver.de>
+
+	* NEWS, configure.ac: updated for new release
+
+2009-07-01 01:19  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c: fixed typos in the comments
+
+2009-07-01 01:09  Maik Broemme <mbroemme@plusserver.de>
+
+	* README.scripts: updated database documentation
+
+2009-07-01 00:33  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/pppd-mysql.8, doc/pppd-pgsql.8, scripts/ppp-login-mysql.sql,
+	  scripts/ppp-login-postgresql.sql, src/auth-mysql.c,
+	  src/auth-pgsql.c, src/plugin-mysql.c, src/plugin-mysql.h,
+	  src/plugin-pgsql.c, src/plugin-pgsql.h, src/plugin.c,
+	  src/plugin.h: added support for fetching server ip address from
+	  database, they can be server or client related which depends on
+	  the database design and will be configured with the
+	  'mysql-column-server-ip' and 'pgsql-column-server-ip' options
+
+2009-06-30 23:35  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/pppd-mysql.8, doc/pppd-pgsql.8, scripts/ppp-login-mysql.sql,
+	  scripts/ppp-login-postgresql.sql, src/auth-mysql.c,
+	  src/auth-pgsql.c, src/plugin-mysql.c, src/plugin-mysql.h,
+	  src/plugin-pgsql.c, src/plugin-pgsql.h: renamed ip to client ip
+	  because next commits will add support for fetching server ip from
+	  database
+
+2009-06-30 20:52  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.h, src/auth-pgsql.h: removed duplicated exter
+	  variable declarations
+
+2009-06-30 20:33  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/plugin.c, src/plugin.h: now the final working up and down
+	  exitcode validation, the waitpid functionality from the
+	  run_program() function isn't enough
+
+2009-06-30 19:36  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c, src/plugin.c, src/plugin.h:
+	  added better version for exitcode verification without using
+	  global variables
+
+2009-06-30 15:28  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/pppd-mysql.8, doc/pppd-pgsql.8, src/auth-mysql.c,
+	  src/auth-pgsql.c: reverted some of the changes of r104
+
+2009-06-30 14:54  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/pppd-mysql.8, doc/pppd-pgsql.8, src/auth-mysql.c,
+	  src/auth-pgsql.c: fixed an issue, if '*-condition' was set, the
+	  query builder use it only with the select queries not with the
+	  update ones
+
+2009-06-30 14:39  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c: added support for using
+	  'pppd_mysql_condition' and 'pppd_pgsql_condition' in the update
+	  statement as in the select statement, queries have to be valid
+	  for both usage scenarios
+
+2009-06-30 14:16  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/pppd-mysql.8, doc/pppd-pgsql.8: updated documentation to
+	  reflect new configuration options
+
+2009-06-30 14:01  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c, src/plugin-mysql.c,
+	  src/plugin-mysql.h, src/plugin-pgsql.c, src/plugin-pgsql.h,
+	  src/plugin.c: added support for terminating the link if 'ip-up'
+	  or 'ip-down' script will fail with non-zero exitstatus, this is
+	  done with the options 'mysql-ip-up-fail', 'mysql-ip-down-fail',
+	  'pgsql-ip-up-fail' and 'pgsql-ip-down-fail'
+
+2009-06-30 12:02  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c, src/plugin.c, src/plugin.h:
+	  added initial support for evaluating the return value of the up
+	  and down scripts
+
+2009-06-26 00:41  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/pppd-mysql.8, doc/pppd-pgsql.8, src/plugin.c, src/plugin.h:
+	  fixed a typo and fixed documentation which describes encryption
+	  for the mysql password instead of the stored user password,
+	  thanks to Stephan Schaefer
+
+2009-06-16 00:33  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c: fixed a stupid bug, if
+	  *-column-user or *-column-pass are prefixed with database name
+	  the authentication failed everytime
+
+2009-02-11 16:31  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/pppd-mysql.8, doc/pppd-pgsql.8: fixed license clashes between
+	  GPLv3 in COPYING and GPLv2 in documentation too
+
+2009-02-02 15:40  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-pgsql.c: changed a comment to make it clear what is
+	  meant
+
+2009-02-01 21:53  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/pppd-mysql.8, doc/pppd-pgsql.8, src/auth-mysql.c,
+	  src/auth-mysql.h, src/auth-pgsql.c, src/auth-pgsql.h,
+	  src/plugin-mysql.c, src/plugin-mysql.h, src/plugin-pgsql.c,
+	  src/plugin-pgsql.h, src/plugin.c, src/plugin.h, src/str.c,
+	  src/str.h: fixed license clashes between GPLv3 in COPYING and
+	  GPLv2 in source files, complete sourcecode is GPLv3 and fixed
+	  wrong year in documentation
+
+2009-01-28 03:10  Maik Broemme <mbroemme@plusserver.de>
+
+	* pppd-sql 0.7.0 release
+
+2009-01-28 03:09  Maik Broemme <mbroemme@plusserver.de>
+
+	* NEWS, configure.ac: updated for new release
+
+2009-01-28 03:03  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/pppd-mysql.8, doc/pppd-pgsql.8: updated documentation
+
+2009-01-28 02:48  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c, src/auth-pgsql.h: added
+	  support for exclusive read locks on specific row to avoid race
+	  conditions between multiple concurrent connections and fixed
+	  wrong username parameter for status update
+
+2009-01-23 12:45  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/pppd-mysql.8, doc/pppd-pgsql.8, src/auth-mysql.c,
+	  src/auth-pgsql.c, src/plugin.c: reverted some of the changes,
+	  'ip-up' is now executed after setting login status in database
+	  and 'ip-down' before setting login status, this makes it possible
+	  to build login chains with login status and fixed compiler
+	  warnings
+
+2009-01-23 01:52  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c, src/plugin.c, src/plugin.h:
+	  removed code duplication and added rollback for IPCP
+	  configuration when it comes up successfully, but status change
+	  inside database failed
+
+2009-01-23 01:22  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c: when IPCP comes up we should
+	  take care of SQL connection errors too
+
+2009-01-23 01:12  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c: damn we should carefully
+	  check all parameters at the right place, now the mysql connection
+	  is only established if an update should be made
+
+2009-01-23 00:49  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/pppd-mysql.8, doc/pppd-pgsql.8, src/auth-mysql.c,
+	  src/auth-pgsql.c: added support for executing 'ip-up' script
+	  before setting login status in database and executing 'ip-down'
+	  after setting login status, also fixed a bug which causes plugin
+	  to ignore option 'pppd_mysql_exclusive' and
+	  'pppd_pgsql_exclusive'
+
+2009-01-19 12:52  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/pppd-mysql.8, doc/pppd-pgsql.8, src/auth-mysql.c,
+	  src/auth-pgsql.c: added three new parameters to script which is
+	  executed if IPCP goes down, received bytes, transmitted bytes and
+	  link duration
+
+2009-01-19 02:02  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/pppd-mysql.8, doc/pppd-pgsql.8: updated documentation with
+	  IPCP configuration scripts
+
+2009-01-19 01:53  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-mysql.h, src/auth-pgsql.c,
+	  src/auth-pgsql.h, src/plugin-mysql.c, src/plugin-mysql.h,
+	  src/plugin-pgsql.c, src/plugin-pgsql.h, src/plugin.h: added
+	  support for ip configuration scripts with an additional username
+	  parameter and blocking support, they are implemented using the
+	  'mysql-ip-up', 'mysql-ip-down', 'pgsql-ip-up' and 'pgsql-ip-down'
+	  configuration parameters
+
+2009-01-18 21:15  Maik Broemme <mbroemme@plusserver.de>
+
+	* pppd-sql 0.6.0 release
+
+2009-01-18 21:14  Maik Broemme <mbroemme@plusserver.de>
+
+	* FAQ, NEWS, README, configure.ac: updated for new release
+
+2009-01-18 21:10  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c: fixed some misplaced error
+	  messages
+
+2009-01-18 20:35  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-mysql.h, src/auth-pgsql.c,
+	  src/auth-pgsql.h, src/plugin-mysql.c, src/plugin-pgsql.c: added
+	  support for concurrent connection handler if IPCP goes down
+
+2009-01-18 19:17  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/pppd-mysql.8, doc/pppd-pgsql.8, src/auth-mysql.c,
+	  src/auth-mysql.h, src/auth-pgsql.c: added opaque MySQL support
+	  and make concurrent connection detection dependent from
+	  authoritative mode
+
+2009-01-17 23:47  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-mysql.h, src/auth-pgsql.c,
+	  src/auth-pgsql.h: added support for concurrent connection
+	  handling at authentication time (this lacks support for reset the
+	  status if IPCP goes down)
+
+2009-01-17 22:18  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-mysql.h, src/auth-pgsql.c,
+	  src/auth-pgsql.h: split the 'pppd__*sql_password' function into
+	  'pppd__*sql_connect' and 'pppd__*sql_disconnect' to create the
+	  concurrent connection handler
+
+2009-01-17 16:24  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-mysql.h, src/auth-pgsql.c,
+	  src/auth-pgsql.h: added function pppd_mysql_parameter() and
+	  pppd__pgsql_parameter() to separate the parameter check from the
+	  sql connection and query function
+
+2009-01-17 16:07  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c: more fixes for connection
+	  retry
+
+2009-01-17 15:22  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c, src/plugin-mysql.c,
+	  src/plugin-pgsql.c: more optimizations
+
+2009-01-17 15:00  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c: reorganized the sourcecode to
+	  get some better understanding of that damn if
+
+2009-01-17 14:43  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c: added the removed connection
+	  retry handler which was removed in last commit
+
+2009-01-16 23:55  Maik Broemme <mbroemme@plusserver.de>
+
+	* README, doc/pppd-mysql.8, doc/pppd-pgsql.8, src/auth-mysql.c,
+	  src/auth-pgsql.c, src/plugin-mysql.c, src/plugin-mysql.h,
+	  src/plugin-pgsql.c, src/plugin-pgsql.h, src/str.c, src/str.h:
+	  removed support for database failover, this is impossible if you
+	  want to use concurrent connection detection which is more
+	  important, this feature require the pppd 'exitnotify' and
+	  database write access and would create asynchronous databases
+
+2009-01-16 21:11  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-pgsql.c: fixed differ in signedness warnings
+
+2009-01-16 21:05  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c: some code cleanups
+
+2009-01-16 20:44  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c: removed some duplicated
+	  memset()
+
+2009-01-16 17:51  Maik Broemme <mbroemme@plusserver.de>
+
+	* README.scripts, scripts/ppp-login-mysql.sql,
+	  scripts/ppp-login-postgresql.sql: updated sql-query dumps and
+	  scripts documentation with login status information
+
+2009-01-16 12:20  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/pppd-mysql.8, doc/pppd-pgsql.8: added exclusive configuration
+	  (deny concurrent connections from one user) to documentation
+
+2009-01-16 01:32  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/plugin.c, src/str.c, src/str.h: renamed function htoi() to
+	  pppd__htoi() to resolve potential name-clashes with other plugins
+
+2009-01-16 00:59  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c, src/plugin-mysql.c,
+	  src/plugin-mysql.h, src/plugin-pgsql.c, src/plugin-pgsql.h: added
+	  initial support for blocking concurrent connections from the same
+	  user, this will require write access to the database and is done
+	  via the options 'mysql-column-update', 'mysql-exclusive',
+	  'pgsql-column-update' and 'pgsql-exclusive'
+
+2009-01-15 23:57  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c: fixed an invalid memory reference which result
+	  in a segmentation fault if the mysql result set is empty
+
+2009-01-12 00:56  Maik Broemme <mbroemme@plusserver.de>
+
+	* pppd-sql 0.5.0 release
+
+2009-01-12 00:54  Maik Broemme <mbroemme@plusserver.de>
+
+	* NEWS, TODO, configure.ac: updated file
+
+2009-01-12 00:52  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c, src/plugin.c, src/plugin.h:
+	  added function pppd__decrypt_password() to verify AES-encrypted
+	  passwords via CHAP authentication
+
+2008-12-12 14:08  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/plugin.c: added support for AES encrypted passwords which are
+	  encoded in HEX-notation as long as MAXSECRETLEN from pppd
+
+2008-12-11 23:00  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/pppd-mysql.8, doc/pppd-pgsql.8: added authoritative and
+	  fallback configuration to documentation
+
+2008-12-10 22:16  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/plugin.c: replaced DES_crypt() with DES_fcrypt() to use a
+	  static buffer and clear it if something failed
+
+2008-12-10 21:42  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c: added support for
+	  authoritative database authentication to CHAP
+
+2008-12-10 02:33  Maik Broemme <mbroemme@plusserver.de>
+
+	* configure.ac: fixed a bug so that configure must stop if OpenSSL
+	  library was not found
+
+2008-12-09 22:13  Maik Broemme <mbroemme@plusserver.de>
+
+	* README.scripts, scripts, scripts/ppp-login-mysql.sql,
+	  scripts/ppp-login-postgresql.sql: added file 'README.scripts' and
+	  sql-query dumps to simplify installation process
+
+2008-12-09 19:42  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c, src/plugin-mysql.c,
+	  src/plugin-mysql.h, src/plugin-pgsql.c, src/plugin-pgsql.h: added
+	  option 'mysql-authoritative' and 'pgsql-authoritative' to specify
+	  if authentication against database should be authoritative or use
+	  the usual '/etc/ppp/pap-secrets' and '/etc/ppp/chap-secrets'
+	  files as fallback
+
+2008-12-08 11:45  Maik Broemme <mbroemme@plusserver.de>
+
+	* FAQ: fixed a typo
+
+2008-12-07 20:54  Maik Broemme <mbroemme@plusserver.de>
+
+	* pppd-sql 0.4.0 release
+
+2008-12-07 20:54  Maik Broemme <mbroemme@plusserver.de>
+
+	* NEWS, TODO: updated TODO and changed release date in NEWS
+
+2008-12-07 20:52  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/pppd-mysql.8, doc/pppd-pgsql.8: added encrpytion information
+	  to documentation
+
+2008-12-07 19:42  Maik Broemme <mbroemme@plusserver.de>
+
+	* README.encryption: added MySQL query examples
+
+2008-12-07 19:41  Maik Broemme <mbroemme@plusserver.de>
+
+	* configure.ac, src/plugin.c, src/plugin.h: replaced glibc crypt()
+	  with DES_crypt() from OpenSSL, removed AC_GNU_SOURCE and
+	  increased version to 0.4.0
+
+2008-12-04 15:33  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/plugin.c: changed crypt() behaviour to match against a hex
+	  value from database instead of the ASCII printable string, to
+	  consolidate password matching
+
+2008-12-03 01:35  Maik Broemme <mbroemme@plusserver.de>
+
+	* FAQ, NEWS, README.encryption: added file 'README.encryption' and
+	  documentation about the encryption
+
+2008-12-03 00:35  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/plugin.c: replaced internal usage of PPP MD5 functions with
+	  openssl equivalent ones, because we will use openssl more and
+	  more, also fixed some small memory corruptions in AES encryption
+
+2008-12-03 00:10  Maik Broemme <mbroemme@plusserver.de>
+
+	* configure.ac: added support for detecting openssl library
+
+2008-12-03 00:03  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c, src/plugin-mysql.c,
+	  src/plugin-mysql.h, src/plugin-pgsql.c, src/plugin-pgsql.h,
+	  src/plugin.c, src/plugin.h: added support for AES-128-ECB
+	  encryption which is used in MySQL by AES_ENCRYPT()
+	  
+	  - implemented AES-128-ECB which is used in MySQL. (keep in mind
+	  that AES_ENCRYPT() in MySQL is mostly undocumented and did not
+	  hash the passphrase prior to encryption, this will reduce the
+	  security to 30-bit or less, this will be changed in future)
+	  
+	  - added support for using the encryption function from the
+	  openssl library.
+	  
+	  - reorganized the sourcecode, to minimize encryption code
+	  duplication.
+
+2008-12-01 01:56  Maik Broemme <mbroemme@plusserver.de>
+
+	* configure.ac, src/auth-mysql.c, src/auth-pgsql.c,
+	  src/plugin-mysql.c, src/plugin-mysql.h, src/plugin-pgsql.c,
+	  src/plugin-pgsql.h, src/plugin.h: added macro AC_GNU_SOURCE and
+	  rearranged the includes to get rid of implicit declaration
+	  warnings when using crypt() because it needs macro _XOPEN_SOURCE
+
+2008-12-01 01:12  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c, src/plugin.h: added support
+	  for PAP authentication against DES with crypt() function via
+	  MySQL or PostgreSQL database
+
+2008-11-30 22:41  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c, src/auth-pgsql.c, src/plugin-mysql.c,
+	  src/plugin-mysql.h, src/plugin-pgsql.c, src/plugin-pgsql.h: added
+	  support for PAP authentication against MD5 hash via MySQL or
+	  PostgreSQL database
+
+2008-11-30 22:33  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/str.c, src/str.h: added function htoi() to convert hex values
+	  to integer numbers, required for md5 byte comparison
+
+2008-11-28 18:17  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/plugin-mysql.c, src/plugin-mysql.h, src/plugin-pgsql.c,
+	  src/plugin-pgsql.h: added option 'pppd_mysql_pass_encryption' and
+	  'pppd_pgsql_pass_encryption' to specify the password encryption
+	  algorithm
+
+2008-11-28 11:30  Maik Broemme <mbroemme@plusserver.de>
+
+	* pppd-sql 0.3.0 release
+
+2008-11-27 20:59  Maik Broemme <mbroemme@plusserver.de>
+
+	* NEWS, TODO, configure.ac: updated files for 0.3.0 release
+
+2008-11-25 23:54  Maik Broemme <mbroemme@plusserver.de>
+
+	* configure.ac: added switch '--enable-mysql' and
+	  '--enable-postgresql' to enable or disable a specific plugin
+	  build
+
+2008-11-25 23:14  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/Makefile.am: manpage should only be installed if equivalent
+	  plugin was built
+
+2008-11-25 01:02  Maik Broemme <mbroemme@plusserver.de>
+
+	* configure.ac, src/Makefile.am: added support for detection of
+	  database backends at configuration time
+
+2008-11-24 14:48  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-pgsql.c, src/auth-pgsql.h: added PAP authentication
+	  support via PostgreSQL and added function pppd__pgsql_password()
+
+2008-11-24 14:17  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.h: added function pppd__mysql_password()
+
+2008-11-24 14:12  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/auth-mysql.c: added PAP authentication support via MySQL
+
+2008-11-24 14:11  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/plugin.h: added error constant for sql error handling
+
+2008-11-24 13:13  Maik Broemme <mbroemme@plusserver.de>
+
+	* configure.ac: fixed a bug with autoconf < 2.61 which result in
+	  misinterpretation of '--with-plugin-path'
+
+2008-11-23 20:53  Maik Broemme <mbroemme@plusserver.de>
+
+	* pppd-sql 0.2.0 release
+
+2008-11-23 20:53  Maik Broemme <mbroemme@plusserver.de>
+
+	* NEWS: updated file
+
+2008-11-23 20:47  Maik Broemme <mbroemme@plusserver.de>
+
+	* README, TODO: fixed typo in README and updated TODO
+
+2008-11-23 20:46  Maik Broemme <mbroemme@plusserver.de>
+
+	* configure.ac: added switch '--with-plugin-path' to specify pppd
+	  plugin directory, added version check for pppd binary, fixed some
+	  portability issues with autoconf and increased version to 0.2.0
+
+2008-11-20 20:43  Maik Broemme <mbroemme@plusserver.de>
+
+	* pppd-sql 0.1.0 release
+
+2008-11-20 20:43  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/Makefile.am: replaced 'uninstall-exec-hook' with
+	  'uninstall-hook' because it was misspelled
+
+2008-11-20 20:37  Maik Broemme <mbroemme@plusserver.de>
+
+	* NEWS, TODO: fixed typo in NEWS and added again something on the
+	  TODO
+
+2008-11-20 20:36  Maik Broemme <mbroemme@plusserver.de>
+
+	* configure.ac, src/Makefile.am: removed possibility to build
+	  static libraries, because we are creating a module which is
+	  loaded via dlopen() and added detection of pppd version
+
+2008-11-20 20:08  Maik Broemme <mbroemme@plusserver.de>
+
+	* NEWS, TODO: updated release date in NEWS file and put new idea to
+	  TODO
+
+2008-11-20 14:30  Maik Broemme <mbroemme@plusserver.de>
+
+	* TODO: updated TODO
+
+2008-11-20 14:24  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/Makefile.am, src/auth-mysql.c, src/auth-mysql.h,
+	  src/auth-pgsql.c, src/auth-pgsql.h, src/chap-mysql.c,
+	  src/chap-mysql.h, src/chap-pgsql.c, src/chap-pgsql.h, src/chap.c,
+	  src/chap.h, src/pap.c, src/pap.h, src/plugin-mysql.c,
+	  src/plugin-pgsql.c, src/plugin.c, src/plugin.h: rearranged the
+	  sourcecode and added initial PAP authentication functions
+
+2008-11-20 11:07  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/pppd-pgsql.8: added pppd-pgsql plugin documentation
+
+2008-11-20 02:45  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/chap-pgsql.c: replaced a wrong warn() with error()
+
+2008-11-20 02:31  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/chap-pgsql.c, src/chap-pgsql.h: added full support for PAP,
+	  CHAP, MS-CHAPv1 and MS-CHAPv2 authentication against PostgreSQL
+
+2008-11-20 02:29  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/chap-mysql.c: removed no longer required variable column and
+	  make use of pppd error() function instead of warn()
+
+2008-11-20 00:54  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/chap-mysql.c, src/chap-mysql.h: added function
+	  pppd__mysql_error() to format the error output generic, because
+	  other database backends like PostgreSQL return error message with
+	  tab delimiters
+
+2008-11-19 21:29  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/chap-mysql.c: added generic error handling with FAILURE
+	  prefix for all plugins
+
+2008-11-19 17:55  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/chap-pgsql.c, src/plugin-pgsql.h: added initial support for
+	  connecting to a PostgreSQL database
+
+2008-11-19 15:54  Maik Broemme <mbroemme@plusserver.de>
+
+	* doc/pppd-mysql.8: added pppd-mysql plugin documentation
+
+2008-11-19 15:52  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/plugin-mysql.c, src/plugin-pgsql.c: changed *-ignore-multiple
+	  and *-ignore-null options from integer to bool, so that it is
+	  enough to add them in config file without any value
+
+2008-11-19 01:56  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/chap-mysql.c: the memory with the secret passphrase should be
+	  cleared before any return in the mysql column loop so that nobody
+	  can dump it
+
+2008-11-19 01:10  Maik Broemme <mbroemme@plusserver.de>
+
+	* src/plugin-mysql.h, src/plugin-pgsql.h: fixed typo
+
+2008-11-19 01:03  Maik Broemme <mbroemme@plusserver.de>
+
+	* AUTHORS, COPYING, FAQ, INSTALL, Makefile.am, NEWS, README,
+	  THANKS, TODO, autogen.sh, configure.ac, doc, doc/Makefile.am,
+	  doc/pppd-mysql.8, doc/pppd-pgsql.8, src, src/Makefile.am,
+	  src/chap-mysql.c, src/chap-mysql.h, src/chap-pgsql.c,
+	  src/chap-pgsql.h, src/chap.c, src/chap.h, src/pap.c, src/pap.h,
+	  src/plugin-mysql.c, src/plugin-mysql.h, src/plugin-pgsql.c,
+	  src/plugin-pgsql.h, src/str.c, src/str.h: initial checkin
+
+2008-11-19 01:02  Maik Broemme <mbroemme@plusserver.de>
+
+	* created tags directory
+
+2008-11-19 01:02  Maik Broemme <mbroemme@plusserver.de>
+
+	* created trunk directory
+

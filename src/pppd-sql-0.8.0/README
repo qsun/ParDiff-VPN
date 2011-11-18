@@ -1,0 +1,51 @@
+Introduction
+============
+
+'pppd-sql' is a plugin for the Point-to-Point server (pppd) on Linux
+and Solaris which adds an authentication backend using a MySQL or
+PostgreSQL database for Challenge Handshake Authentication Protocol
+(CHAP) and Password Authentication Protocol (PAP). It supports
+MS-CHAPv1 and MS-CHAPv2 too. The IPCP negotiation after authentication
+handshake is also supported.
+
+'pppd-sql' supports a flexible configuration scheme, has concurrent
+connection handling for one single user across multiple tunnel servers
+and comes with easy and handy documentation.
+
+'pppd-sql' is based on some parts of 'pppd-mysql' which is a good tool
+to see how pppd can work with mysql, but lacks flexible configuration
+functionality.
+
+Why another "new" sql plugin for pppd?
+======================================
+
+Well the 'pppd-mysql' plugin looks unmaintained now since three years
+(last release is from september 2005) and for my employer the
+PlusServer AG, I was seeking for a common way to integrate poptop
+with ppp and MySQL. Also there was no PostgreSQL plugin available
+until 'pppd-sql' and I want to change this.
+
+Why another "way" of adding sql support for pppd?
+=================================================
+
+There exist at least two other ways doing this: First using freeradius
+with radiusclient-ng via pppd-radius plugin and second NTLM with Samba
+via pppd-winbind plugin. Both solutions creates to much overhead for me,
+single points of failures and are heavy to debug.
+
+Manual
+======
+
+It is a good idea to read the `FAQ' file.
+
+Reporting Bugs
+==============
+
+Bug reports for 'pppd-sql' can be send to me directly.
+
+    * Maik Broemme <mbroemme@plusserver.de>
+
+Enjoy!
+
+Maik Broemme <mbroemme@plusserver.de>
+http://www.babelize.org/

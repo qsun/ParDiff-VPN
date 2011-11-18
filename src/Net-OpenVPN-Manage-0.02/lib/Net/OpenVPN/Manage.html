@@ -1,0 +1,426 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Net::OpenVPN::Manage - Manage an OpenVPN process via it's management port</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#changes">CHANGES</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#using_the_module">USING THE MODULE</a></li>
+	<li><a href="#methods">METHODS</a></li>
+	<li><a href="#cookbook">COOKBOOK</a></li>
+	<li><a href="#author">AUTHOR</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p>Net::OpenVPN::Manage - Manage an OpenVPN process via it's management port</p>
+<p>Version 0.02</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>This module connects to the OpenVPN management interface, executes 
+commands on the interface and returns the results or errors that result.</p>
+<p>
+</p>
+<hr />
+<h1><a name="changes">CHANGES</a></h1>
+<pre>
+ 0.02: 
+   1: Added the 'status_ref' method so you don't have to parse out the 
+      values from the scalar data returned from the 'status' method 
+      yourself.
+   2: Changed the 'status', 'log' and 'state' methods to return array 
+      references instead of multi-line scalars when multi-line data 
+      is returned.
+   3: Made several changes to the POD text to show examples and data 
+      types returned.</pre>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<pre>
+  <span class="keyword">use</span> <span class="variable">Net::OpenVPN::Manage</span><span class="operator">;</span>
+</pre>
+<pre>
+  <span class="keyword">my</span> <span class="variable">$vpn</span> <span class="operator">=</span> <span class="variable">Net::OpenVPN::Manage</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">(</span><span class="operator">{</span> 
+                <span class="string">host</span><span class="operator">=&gt;</span><span class="string">'127.0.0.1'</span><span class="operator">,</span> 
+                <span class="string">port</span><span class="operator">=&gt;</span><span class="string">'1195'</span><span class="operator">,</span> 
+                <span class="string">password</span><span class="operator">=&gt;</span><span class="string">'password'</span><span class="operator">,</span>
+                <span class="string">timeout</span><span class="operator">=&gt;</span><span class="number">10</span>
+  <span class="operator">}</span><span class="operator">);</span>
+  
+  <span class="comment"># Error if unable to connect.</span>
+  <span class="keyword">unless</span><span class="operator">(</span><span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="keyword">connect</span><span class="operator">()){</span>
+    <span class="keyword">print</span> <span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="operator">{</span><span class="string">error_msg</span><span class="operator">}</span><span class="operator">.</span><span class="string">"\n"</span><span class="operator">;</span>
+    <span class="keyword">exit</span> <span class="number">0</span><span class="operator">;</span>
+  <span class="operator">}</span>
+  
+  <span class="comment"># Get the current status table in version 2 format from the process.</span>
+  <span class="keyword">my</span> <span class="variable">$status</span> <span class="operator">=</span> <span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="variable">status</span><span class="operator">(</span><span class="number">2</span><span class="operator">);</span>
+  
+  <span class="comment"># If method returned false, print error message.</span>
+  <span class="comment"># Otherwise print table to STDOUT.</span>
+  <span class="keyword">if</span> <span class="operator">(</span> <span class="operator">!</span> <span class="variable">$status</span> <span class="operator">)</span> <span class="operator">{</span>
+    <span class="keyword">print</span> <span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="operator">{</span><span class="string">error_msg</span><span class="operator">}</span><span class="operator">;</span>
+    <span class="keyword">exit</span> <span class="number">0</span><span class="operator">;</span>
+  <span class="operator">}</span> <span class="keyword">else</span> <span class="operator">{</span>
+    <span class="keyword">print</span> <span class="variable">$status</span><span class="operator">.</span><span class="string">"\n"</span><span class="operator">;</span>
+  <span class="operator">}</span>
+</pre>
+<p>
+</p>
+<hr />
+<h1><a name="using_the_module">USING THE MODULE</a></h1>
+<p>All the methods in this module will return 0, or boolean false if there is any error.
+In most cases an error message detailing the problem will be returned in $obj-&gt;{error_msg}.</p>
+<p>
+</p>
+<hr />
+<h1><a name="methods">METHODS</a></h1>
+<dl>
+<dt><strong><a name="item_new">$vpn = Net::OpenVPN::Manage-&gt;new({ host=&gt;'', port=&gt;'', password=&gt;'', timeout=&gt;20 });</a></strong>
+
+<dd>
+<p>Constructs a new Net::OpenVPN::Manage object to connect to the specified process's management interface.
+The anonymous hash that is passed specifies the target hostname or IP address, TCP port, and an optional password.
+If no password is configured for your OpenVPN process, just omit the password reference. Optionally, you can
+change the network timeout value as well.</p>
+</dd>
+</li>
+<dt><strong><a name="item_connect">$vpn-&gt;connect();</a></strong>
+
+<dd>
+<p>The connect method has no arguments passed to it. This method opens the connection to the remote host at the port specified, 
+in the event that the host or port provided to the object are incorrect; or if there is already another network
+session to this port (OpenVPN only supports a single management session at a time) this command will timeout.</p>
+</dd>
+<dd>
+<p>For more extensive information on the use of the OpenVPN management commands referenced by these methods, see the
+OpenVPN documentation (http://www.openvpn.net) or at least the management help screen (print $vpn-&gt;help();).</p>
+</dd>
+</li>
+<dt><strong><a name="item_auth_retry">$vpn-&gt;auth_retry( $arg );</a></strong>
+
+<dd>
+<p>Changes the Auth failure retry mode. Arguments are: none, interact, or nointeract.</p>
+</dd>
+<dd>
+<pre>
+        <span class="comment"># Sets auth-retry mode to 'none'</span>
+        <span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="variable">auth_retry</span><span class="operator">(</span><span class="string">'none'</span><span class="operator">);</span>
+</pre>
+</dd>
+</li>
+<dt><strong><a name="item_echo">$vpn-&gt;echo( $arg );</a></strong>
+
+<dd>
+<p>Returns messages from the echo buffer or changes echo state. Arguments are: on, off, all, or a integer designating number of lines to be returned.
+The on and off arguments are really of no use here since it changes the state of the realtime management console echo messages and our session only connected for a brief time.</p>
+</dd>
+<dd>
+<pre>
+        <span class="comment"># Returns entire echo buffer</span>
+        <span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="variable">echo</span><span class="operator">(</span><span class="string">'all'</span><span class="operator">);</span>
+</pre>
+</dd>
+</li>
+<dt><strong><a name="item_help">$vpn-&gt;help();</a></strong>
+
+<dd>
+<p>Returns the help screen for the management command usage as a multiline string.</p>
+</dd>
+<dd>
+<pre>
+        <span class="comment"># Prints the help screen to STDOUT</span>
+        <span class="keyword">print</span> <span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="variable">help</span><span class="operator">();</span>
+</pre>
+</dd>
+</li>
+<dt><strong><a name="item_hold">$vpn-&gt;hold( $arg );</a></strong>
+
+<dd>
+<p>If called without an argument it returns the current hold state; if called with an argument of: on, off, or release it changes the current hold state.</p>
+</dd>
+<dd>
+<pre>
+        <span class="comment"># Releases the hold state on the OpenVPN process.</span>
+        <span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="variable">hold</span><span class="operator">(</span><span class="string">'release'</span><span class="operator">);</span> 
+        
+        <span class="comment"># Prints current hold state.</span>
+        <span class="keyword">print</span> <span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="variable">hold</span><span class="operator">();</span>
+</pre>
+</dd>
+</li>
+<dt><strong><a name="item_kill">$vpn-&gt;kill( $arg );</a></strong>
+
+<dd>
+<p>Kills the VPN connection referenced. The argument may be either the common name of the connection or the real client IP:Port address.</p>
+</dd>
+<dd>
+<pre>
+        <span class="comment"># kills the connection with the common name of 'jsmith'</span>
+        <span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="keyword">kill</span><span class="operator">(</span><span class="string">'jsmith'</span><span class="operator">);</span>
+</pre>
+</dd>
+<dd>
+<pre>
+        <span class="comment"># kills the connection where the client is connecting from: '63.73.83.93:17023'</span>
+        <span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="keyword">kill</span><span class="operator">(</span><span class="string">'63.73.83.93:17023'</span><span class="operator">);</span>
+</pre>
+</dd>
+</li>
+<dt><strong><a name="item_log">$vpn-&gt;log( $arg );</a></strong>
+
+<dd>
+<p>Returns messages from the log buffer or changes realtime log state. Arguments are: on, off, all, or an integer designating number of lines to be returned.
+The on and off arguments are really of no use here since it changes the state of the realtime management console log messages and our session only connected for a brief time.
+If logged records are requested, they are returned as an array reference - otherwise a scalar value is returned.</p>
+</dd>
+<dd>
+<pre>
+        <span class="comment"># prints the entire log buffer.</span>
+        <span class="keyword">print</span> <span class="variable">@</span><span class="operator">{</span><span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="keyword">log</span><span class="operator">(</span><span class="string">'all'</span><span class="operator">)</span><span class="operator">}</span><span class="operator">;</span> 
+        
+        <span class="comment"># turns off logging.</span>
+        <span class="keyword">my</span> <span class="variable">$result</span> <span class="operator">=</span> <span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="keyword">log</span><span class="operator">(</span><span class="string">'off'</span><span class="operator">);</span>
+</pre>
+</dd>
+</li>
+<dt><strong><a name="item_mute">$vpn-&gt;mute( $arg );</a></strong>
+
+<dd>
+<p>If no argument is given it will show the log mute level for recurring log messages; if called with an argument it will change the log mute level to the value given.</p>
+</dd>
+<dd>
+<pre>
+        <span class="comment"># Sets the log mute level to 10.</span>
+        <span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="variable">mute</span><span class="operator">(</span><span class="number">10</span><span class="operator">);</span>
+</pre>
+</dd>
+</li>
+<dt><strong><a name="item_net">$vpn-&gt;net();</a></strong>
+
+<dd>
+<p>This method has not been implemented. Only applicable on the Windows platform.</p>
+</dd>
+</li>
+<dt><strong><a name="item_password">$vpn-&gt;password();</a></strong>
+
+<dd>
+<p>This method has not been implemented. Only of use when the management session is continuous - ours is not.</p>
+</dd>
+</li>
+<dt><strong><a name="item_signal">$vpn-&gt;signal( $arg );</a></strong>
+
+<dd>
+<p>Sends a signal to the OpenVPN daemon process. Arugments are: SIGHUP, SIGTERM, SIGUSR1, or SIGUSR2.
+If the daemon is running under a non root or Administrator|System account it will not be able to restart
+itself after a reset since it won't have the priveledges required to reopen the network interfaces.
+See the OpenVPN HOWTO and the OpenVPN Management Interface documentation.</p>
+</dd>
+<dd>
+<pre>
+        <span class="comment"># Sends SIGHUP signal to the process.</span>
+        <span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="variable">signal</span><span class="operator">(</span><span class="string">'SIGHUP'</span><span class="operator">);</span>
+</pre>
+</dd>
+</li>
+<dt><strong><a name="item_state">$vpn-&gt;state();</a></strong>
+
+<dd>
+<p>Either turns on or off real time state notification if called with arguments of 'on' or 'off'; or returns current connection state information as an array reference if called without an argument, 'all', or some integer value that requests some X number of entries.</p>
+</dd>
+<dd>
+<pre>
+        <span class="comment"># Print all connection states</span>
+        <span class="keyword">print</span> <span class="variable">@</span><span class="operator">{</span><span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="variable">state</span><span class="operator">()</span><span class="operator">}</span><span class="operator">;</span>
+</pre>
+</dd>
+</li>
+<dt><strong><a name="item_status">$vpn-&gt;status( $arg );</a></strong>
+
+<dd>
+<p>Returns the active connections status information as a multiline scalar where the optional argument (either 1 or 2 at this time) specifies the output format version. 
+If called without an argument, it will return the data in the format defaulted by the daemon.</p>
+</dd>
+<dd>
+<pre>
+        <span class="comment"># Print the connection status page using the version 2 format.</span>
+        <span class="keyword">print</span> <span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="variable">status</span><span class="operator">(</span><span class="number">2</span><span class="operator">);</span>
+</pre>
+</dd>
+</li>
+<dt><strong><a name="item_status_ref">$vpn-&gt;status_ref( );</a></strong>
+
+<dd>
+<p>Returns the active connections status information as a reference to a hash of arrays.</p>
+</dd>
+<dd>
+<p><a href="#item_status_ref"><code>my $r = $vpn-&gt;status_ref();</code></a></p>
+</dd>
+<dd>
+<p><code>$r-&gt;{TITLE}</code> is a scalar showing the status TITLE.</p>
+</dd>
+<dd>
+<p><code>$r-&gt;{TIME}</code> is a scalar showing the status TIME.</p>
+</dd>
+<dd>
+<p><code>$r-&gt;{GLOBAL_STATS}</code> is a scalar showing the GLOBAL_STATS line.</p>
+</dd>
+<dd>
+<p><code>$r-&gt;{HEADER}{CLIENT_LIST}</code> is an array of the CLIENT_LIST column headers.</p>
+</dd>
+<dd>
+<p><code>$r-&gt;{HEADER}{ROUTING_TABLE}</code> is an array of the ROUTING_TABLE column headers.</p>
+</dd>
+<dd>
+<p><code>$r-&gt;{CLIENT_LIST}</code> is an array of arrays containing connection data for each active connection.</p>
+</dd>
+<dd>
+<pre>
+ <span class="operator">[</span> 
+  <span class="operator">[</span><span class="string">"John Doe"</span><span class="operator">,</span> <span class="string">"1.2.3.4:5678"</span><span class="operator">,</span> <span class="string">"4.3.2.1"</span><span class="operator">,</span> <span class="string">"67264"</span><span class="operator">,</span> <span class="string">"87264"</span><span class="operator">,</span> <span class="string">"Fri Jul  7 14:20:51 2006"</span><span class="operator">,</span> <span class="string">"1152300051"</span><span class="operator">]</span><span class="operator">,</span> <span class="operator">&gt;</span>
+  <span class="operator">[</span><span class="string">"Jane Doe"</span><span class="operator">,</span> <span class="string">"2.3.4.5:6789"</span><span class="operator">,</span> <span class="string">"5.4.3.2"</span><span class="operator">,</span> <span class="string">"12347101"</span><span class="operator">,</span> <span class="string">"19043721"</span><span class="operator">,</span> <span class="string">"Tue Jul  3 12:10:05 2006"</span><span class="operator">,</span> <span class="string">"1150000050"</span><span class="operator">]</span> <span class="operator">&gt;</span>
+  <span class="operator">...</span>
+ <span class="operator">]</span>
+ 
+ <span class="variable">C</span><span class="operator">&lt;&lt;</span> <span class="variable">$r</span><span class="operator">-&gt;</span><span class="operator">{</span><span class="string">ROUTING_TABLE</span><span class="operator">}</span> <span class="operator">&gt;&gt;</span> <span class="variable">is</span> <span class="variable">an</span> <span class="variable">array</span> <span class="variable">of</span> <span class="variable">arrays</span> <span class="variable">containing</span> <span class="variable">ROUTING_TABLE</span> <span class="variable">data</span> <span class="keyword">for</span> <span class="keyword">each</span> <span class="variable">active</span> <span class="variable">connection</span><span class="operator">.</span>
+ <span class="variable">This</span> <span class="variable">structure</span> <span class="variable">is</span> <span class="variable">identical</span> <span class="variable">to</span> <span class="variable">that</span> <span class="variable">in</span> <span class="variable">$r</span><span class="operator">-&gt;</span><span class="operator">{</span><span class="string">CLIENT_LIST</span><span class="operator">}</span><span class="operator">,</span> <span class="variable">with</span> <span class="variable">an</span> <span class="variable">array</span> <span class="variable">containing</span> <span class="variable">an</span> <span class="variable">array</span> <span class="variable">of</span> <span class="keyword">values</span> <span class="keyword">for</span> <span class="keyword">each</span> <span class="variable">connection</span><span class="operator">.</span>
+</pre>
+</dd>
+<dd>
+<pre>
+ <span class="operator">[</span>
+  <span class="operator">[</span><span class="string">"4.3.2.1"</span><span class="operator">,</span> <span class="string">"John Doe"</span> <span class="operator">,</span><span class="string">"1.2.3.4:5678"</span><span class="operator">,</span> <span class="string">"Fri Jul  7 14:41:35 2006"</span><span class="operator">,</span> <span class="string">"1152301295"</span><span class="operator">]</span><span class="operator">,</span>
+  <span class="operator">[</span><span class="string">"5.4.3.2"</span><span class="operator">,</span> <span class="string">"Jane Doe"</span> <span class="operator">,</span><span class="string">"2.3.4.5:6789"</span><span class="operator">,</span> <span class="string">"Tue Jul  3 12:10:05 2006"</span><span class="operator">,</span> <span class="string">"1150000050"</span><span class="operator">]</span>
+  <span class="operator">...</span>
+ <span class="operator">]</span>
+        
+         <span class="keyword">my</span> <span class="variable">$r</span> <span class="operator">=</span> <span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="variable">status_ref</span><span class="operator">();</span> 
+         <span class="keyword">foreach</span> <span class="keyword">my</span> <span class="variable">$array_ref</span> <span class="operator">(</span> <span class="variable">@</span><span class="operator">{</span><span class="variable">$r</span><span class="operator">-&gt;</span><span class="operator">{</span><span class="string">CLIENT_LIST</span><span class="operator">}}</span> <span class="operator">){</span> 
+                <span class="keyword">print</span> <span class="string">"Common Name: $$array_ref[0], bytes sent: $$array_ref[3], bytes recvd: $$array_ref[4]\n"</span><span class="operator">;</span> 
+         <span class="operator">}</span>
+</pre>
+</dd>
+<dd>
+<pre>
+        -- or to use the column heading ref --</pre>
+</dd>
+<dd>
+<pre>
+         <span class="keyword">my</span> <span class="variable">$r</span> <span class="operator">=</span> <span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="variable">status_ref</span><span class="operator">();</span> 
+         <span class="keyword">foreach</span> <span class="keyword">my</span> <span class="variable">$array_ref</span> <span class="operator">(</span> <span class="variable">@</span><span class="operator">{</span><span class="variable">$r</span><span class="operator">-&gt;</span><span class="operator">{</span><span class="string">CLIENT_LIST</span><span class="operator">}}</span> <span class="operator">){</span> 
+                <span class="keyword">print</span> <span class="string">"$r-&gt;{HEADER}{CLIENT_LIST}[0]: $$array_ref[0], $r-&gt;{HEADER}{CLIENT_LIST}[3]: $$array_ref[3], $r-&gt;{HEADER}{CLIENT_LIST}[4]: $$array_ref[4]"</span><span class="operator">;</span> 
+         <span class="operator">}</span>
+</pre>
+</dd>
+</li>
+<dt><strong><a name="item_test">$vpn-&gt;test();</a></strong>
+
+<dd>
+<p>This method is not implemented. No real need to test management console.</p>
+</dd>
+</li>
+<dt><strong><a name="item_username">$vpn-&gt;username();</a></strong>
+
+<dd>
+<p>This method has not been implemented. Only of use when the management session is continuous - ours is not.</p>
+</dd>
+</li>
+<dt><strong><a name="item_verb">$vpn-&gt;verb( $arg );</a></strong>
+
+<dd>
+<p>If called without an argument it returns the log verbosity level; if called with an argument (any valid log level) it changes the verbosity setting to the given value.</p>
+</dd>
+<dd>
+<pre>
+        <span class="comment"># Change verbosity level to 1.</span>
+        <span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="variable">verb</span><span class="operator">(</span><span class="string">'1'</span><span class="operator">);</span>
+</pre>
+</dd>
+</li>
+<dt><strong><a name="item_version">$vpn-&gt;version();</a></strong>
+
+<dd>
+<p>Returns a string showing the processes version information as well as the management interface's version.</p>
+</dd>
+<dd>
+<pre>
+        <span class="comment"># Prints the version information to STDOUT.</span>
+        <span class="keyword">print</span> <span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="variable">version</span><span class="operator">();</span>
+</pre>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="cookbook">COOKBOOK</a></h1>
+<p>Example of CGI script that shows connected clients. Rough and definitely not pretty, just an example...
+Keep in mind that to extend this, you could have hyperlinks that callback and can disconnect sessions, print log entries, etc.</p>
+<pre>
+        <span class="keyword">use</span> <span class="variable">strict</span><span class="operator">;</span>
+        <span class="keyword">use</span> <span class="variable">CGI</span><span class="operator">;</span>
+        <span class="keyword">use</span> <span class="variable">Net::OpenVPN::Manage</span><span class="operator">;</span>
+</pre>
+<pre>
+        <span class="keyword">my</span> <span class="variable">$cgi</span><span class="operator">=</span><span class="variable">CGI</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">();</span>
+        <span class="keyword">print</span> <span class="variable">$cgi</span><span class="operator">-&gt;</span><span class="variable">header</span><span class="operator">();</span>
+</pre>
+<pre>
+        <span class="keyword">my</span> <span class="variable">$vpn</span><span class="operator">=</span><span class="variable">Net::OpenVPN::Manage</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">(</span><span class="operator">{</span><span class="string">host</span><span class="operator">=&gt;</span><span class="string">'openvpn.domain.com'</span><span class="operator">,</span> <span class="string">port</span><span class="operator">=&gt;</span><span class="string">'1195'</span><span class="operator">,</span> <span class="string">password</span><span class="operator">=&gt;</span><span class="string">'password'</span><span class="operator">,</span> <span class="string">timeout</span><span class="operator">=&gt;</span><span class="string">'5'</span><span class="operator">}</span><span class="operator">);</span>
+        <span class="keyword">unless</span> <span class="operator">(</span><span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="keyword">connect</span><span class="operator">()){</span>
+                <span class="keyword">print</span> <span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="operator">{</span><span class="string">error_msg</span><span class="operator">}</span><span class="operator">.</span><span class="string">"\n\n"</span><span class="operator">;</span>
+                <span class="keyword">exit</span> <span class="number">0</span><span class="operator">;</span>
+        <span class="operator">}</span>
+</pre>
+<pre>
+        <span class="keyword">my</span> <span class="variable">$r</span><span class="operator">=</span><span class="variable">$vpn</span><span class="operator">-&gt;</span><span class="variable">status_ref</span><span class="operator">();</span>
+        <span class="keyword">print</span> <span class="string">qq|&lt;table border="1"&gt;&lt;tr&gt;|</span><span class="operator">;</span>
+        <span class="keyword">foreach</span> <span class="keyword">my</span> <span class="variable">$heading</span> <span class="operator">(</span> <span class="variable">@</span><span class="operator">{</span><span class="variable">$r</span><span class="operator">-&gt;</span><span class="operator">{</span><span class="string">HEADER</span><span class="operator">}{</span><span class="string">CLIENT_LIST</span><span class="operator">}}</span> <span class="operator">){</span>
+                <span class="keyword">print</span> <span class="string">qq|&lt;th&gt;$heading&lt;/th&gt;|</span><span class="operator">;</span>
+        <span class="operator">}</span>
+        
+        <span class="keyword">print</span> <span class="string">qq|&lt;/tr&gt;|</span><span class="operator">;</span>
+        <span class="keyword">foreach</span> <span class="keyword">my</span> <span class="variable">$aref</span> <span class="operator">(</span> <span class="variable">@</span><span class="operator">{</span><span class="variable">$r</span><span class="operator">-&gt;</span><span class="operator">{</span><span class="string">CLIENT_LIST</span><span class="operator">}}</span> <span class="operator">){</span>
+                <span class="keyword">print</span> <span class="string">qq|&lt;tr&gt;|</span><span class="operator">;</span>
+                <span class="keyword">foreach</span> <span class="keyword">my</span> <span class="variable">$r</span> <span class="operator">(</span> <span class="variable">@</span><span class="operator">{</span><span class="variable">$aref</span><span class="operator">}</span> <span class="operator">){</span>
+                        <span class="keyword">print</span> <span class="string">qq|&lt;td&gt;$r&lt;/td&gt;|</span><span class="operator">;</span>
+                <span class="operator">}</span>
+                <span class="keyword">print</span> <span class="string">qq|&lt;/tr&gt;|</span><span class="operator">;</span>
+        <span class="operator">}</span>
+        
+        <span class="keyword">print</span> <span class="string">qq|&lt;/table&gt;|</span><span class="operator">;</span>  
+</pre>
+<p>
+</p>
+<hr />
+<h1><a name="author">AUTHOR</a></h1>
+<p>Copyright (c) 2006 Aaron Meyer / MeyerTech.net
+
+</p>
+<p>This module is free software; you can redistribute it or modify it under
+the same terms as Perl itself.
+
+</p>
+
+</body>
+
+</html>

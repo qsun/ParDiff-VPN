@@ -1,0 +1,50 @@
+FAQ - Frequently Asked Questions
+================================
+
+Q: What is 'pppd-sql'?
+A: 'pppd-sql' is a plugin for the Point-to-Point server (pppd)
+   which adds PAP and CHAP authentication via a MySQL or PostgreSQL
+   database.
+
+Q: What is needed?
+A: You need a running PPP Server >= 2.4.4 which allows runtime load
+   of plugins. Almost every latest distribution comes with a PPP
+   Server which provide this functionality.
+
+Q: Why did you start this project?
+A: I was seeking a solution for doing MS-PPTP authentication with
+   MySQL for my employer the PlusServer AG.
+
+Q: Why did not extend old 'pppd-mysql' itself?
+A: Simple answer: It is a very small project and almost every piece
+   of code was rewrittten, so it doesn't make sense. But of course
+   it was a great application to learn.
+
+Q: Is it working with MS-CHAPv1 and MS-CHAPv2?
+A: Yes it is, this was the main reason for creating this plugin.
+
+Q: Can PAP passwords stored in database using an 'one-way' hash?
+A: Yes they can, because with PAP the passwords are transferred in
+   plaintext, so the plugin can create a hash from it and compare it
+   with the hash stored in database.
+
+Q: Can CHAP, MS-CHAPv1 and MS-CHAPv2 passwords stored in database
+   using an 'one-way' hash?
+A: No they can't, please take a look into 'README.encryption' for an
+   explanation.
+
+Q: Why should I use the symmetric encryption for CHAP, MS-CHAPv1 or
+   MS-CHAPv2 and a 'one-way' hash for PAP?
+A: Even to secure the storage place of your passwords, please take a
+   look into 'README.encryption' too.
+
+Q: Why did you remove the failover functionality?
+A: To implement the concurrent connection handler with multiple
+   tunnel servers, I need to store the login status inside the
+   database. If you use multiple database servers, the write access
+   may result in asynchronous data.
+
+Q: I have a cool idea for 'pppd-sql' but don't know C.
+A: No problem, i started this utility to enhance the PPP Server
+   with some cool features. So look at the authors file and send me
+   an email.
