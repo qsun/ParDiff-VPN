@@ -1,8 +1,8 @@
 SECURITY NOTES
 
-Goal of ParDiff VPN system is generic and easy to
+Goal of ParDiff VPN system is to be generic and easy to
 use/configure. *ParDiff VPN is not designed to be secure.*
 
-One of the most risky issue is all users' passwords are stored as
-clear text in database. This is because pptp CHAP requires password to
-be known both at server side and client side. 
+Risk issue includes all users' passwords are stored as clear text in
+database. This is because pptp CHAP requires password to be known both
+at server side and client side.
