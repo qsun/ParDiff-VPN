@@ -1,4 +1,7 @@
-ParDiff VPN source code
+# 请注意，这个Pardiff VPN是很多年前我不是很懂web的时候做的，我觉得不是很适合作为生产环境使用，小心谨慎
+
+
+# ParDiff VPN source code
 
 Features of ParDiff VPN includes,
  * Generic password for OpenVPN, PPTP, Web Login
